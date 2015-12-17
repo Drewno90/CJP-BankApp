@@ -27,8 +27,14 @@ public class CheckingAccount extends AbstractAccount{
 			System.out.println("Illegal argument");
 			throw new IllegalArgumentException(Float.toString(overdraft));
 		}
+		if(balance<-overdraft)
+		{
+			System.out.println("Illegal argument");
+			throw new IllegalArgumentException(Float.toString(balance));
+		}	
 
 	}
+	
 	
 	public void setOverdraft(float overdraft) throws IllegalArgumentException
 	{
@@ -42,7 +48,7 @@ public class CheckingAccount extends AbstractAccount{
 
 	@Override
 	public void withdraw(float amount) throws OverDraftLimitExceededException {
-		if(-overdraft>=(getBalance()-amount))
+		if((-overdraft)<=(getBalance()-amount))
 			this.setBalance(getBalance()-amount);
 		else
 		{

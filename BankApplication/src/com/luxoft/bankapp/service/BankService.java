@@ -16,6 +16,8 @@ public interface BankService {
 	public void transfer(Client clientFromWhomTransfer, Client clientToWhomTransfer, float ammount);
 	public void deposit(Client client, float ammount);
 	public void withdraw(Client client, float ammount);
+	public Client getClient(Bank bank, String clientName);
+
 }
 
 

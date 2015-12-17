@@ -5,6 +5,7 @@ import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 import com.luxoft.bankapp.handling_exceptions.OverDraftLimitExceededException;
 import com.luxoft.bankapp.model.Account;
 import com.luxoft.bankapp.model.Bank;
+import com.luxoft.bankapp.model.BankReport;
 import com.luxoft.bankapp.model.CheckingAccount;
 import com.luxoft.bankapp.model.Client;
 import com.luxoft.bankapp.model.Gender;
@@ -17,29 +18,29 @@ public class BankApplication {
 	{
 		Bank bank=new Bank();
 		BankServiceImpl bankService = new BankServiceImpl();
-		Client client1 = new Client("Tom",500,Gender.MALE);
+		Client client1 = new Client("Tom",1600,Gender.MALE, "Warsaw");
 		bankService.addClient(bank, client1);
 		Account savingAccount = new SavingAccount(300);
-		Account checkingAccount = new CheckingAccount(300);
+		Account checkingAccount = new CheckingAccount(300, client1);
 		bankService.addAccount(client1,savingAccount);
 		bankService.addAccount(client1,checkingAccount);
-		bankService.setActiveAccount(client1,savingAccount);
+		bankService.setActiveAccount(client1,checkingAccount);
 		
-		Client client2 = new Client("Ben",1500,Gender.MALE);
+		Client client2 = new Client("Ben",1700,Gender.MALE, "Krakow");
 		bankService.addClient(bank, client2);
 		Account savingAccount2 = new SavingAccount(2300);
-		Account checkingAccount2 = new CheckingAccount(300);
+		Account checkingAccount2 = new CheckingAccount(300, client2);
 		bankService.addAccount(client2,savingAccount2);
 		bankService.addAccount(client2,checkingAccount2);
-		bankService.setActiveAccount(client2,savingAccount2);
+		bankService.setActiveAccount(client2,checkingAccount2);
 		
-		Client client3 = new Client("Mon",700,Gender.FEMALE);
+		Client client3 = new Client("Mon",1700,Gender.FEMALE, "Poznan");
 		bankService.addClient(bank, client3);
 		Account savingAccount3 = new SavingAccount(300);
-		Account checkingAccount3 = new CheckingAccount(300);
+		Account checkingAccount3 = new CheckingAccount(300, client3);
 		bankService.addAccount(client3,savingAccount3);
 		bankService.addAccount(client3,checkingAccount3);
-		bankService.setActiveAccount(client3,savingAccount3);
+		bankService.setActiveAccount(client3,checkingAccount3);
 
 		
 		return bank;
@@ -49,18 +50,25 @@ public class BankApplication {
 	{
 		for(Client client: bank.getClients())
 		client.getActiveAccount().deposit(1200);
-		System.out.println("After deposit 1200 on all accounts");
-		printBankReport(bank);
+		//System.out.println("After deposit 1200 on all accounts");
+		//printBankReport(bank);
 		
 		for(Client client: bank.getClients())
-		client.getActiveAccount().withdraw(255);
+		client.getActiveAccount().withdraw(1600);
 		
-		printBankReport(bank);
+		
+		//printBankReport(bank);
 	}
 	
 	public static void printBankReport(Bank bank)
 	{
-		bank.printReport();
+		BankReport bp=new BankReport();
+		bp.getClientsSorted(bank);
+		bp.getBankCreditSum(bank);
+		bp.getNumberOfClients(bank);
+		bp.getAccountsNumber(bank);
+		bp.getClientsByCity(bank);
+		//bank.printReport();   // BankReport before implement class BankReport
 	}
 	
 	public static void main(String[] args) throws ClientExistsException{
@@ -80,10 +88,9 @@ public class BankApplication {
 			System.out.println("Not enough Funds. Maximum of what you can get is " + e.getAmount());
 			e.printStackTrace();
 		}
-
-
-
 		
+		
+
 	}
 
 }

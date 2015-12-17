@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.model.Client;
-import com.luxoft.bankapp.model.Gender;
 import com.luxoft.bankapp.service.BankService;
 import com.luxoft.bankapp.service.BankServiceImpl;
 
@@ -38,7 +37,7 @@ public class AddClientCommand implements Command {
 			System.out.println("Incorrect amount");
 		int overdraft= new Integer(input);	
 		
-		Client client = new Client(name, mailAddress, phoneNumber, overdraft, Gender.MALE);
+		Client client = new Client(name, mailAddress, phoneNumber, overdraft); 
 		
 		BankService bankService= new BankServiceImpl();
 		try {

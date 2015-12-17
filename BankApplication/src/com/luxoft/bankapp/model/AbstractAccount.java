@@ -22,11 +22,6 @@ public abstract class AbstractAccount implements Account{
 	}
 	
 	public void setBalance(float balance) {
-		if(balance<=0)
-		{
-			System.out.println("Illegal argument");
-			throw new IllegalArgumentException(Float.toString(balance));
-		}
 		this.balance = balance;
 	}
 	

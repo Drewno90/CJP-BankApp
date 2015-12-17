@@ -14,14 +14,14 @@ public class FindClientCommand implements Command {
 		String clientName=scan.nextLine();
 		BankService bankService= new BankServiceImpl();
 		
-		bankService.findClientByHisName(BankCommander.currentBank, clientName);
+		bankService.getClient(BankCommander.currentBank, clientName);
 		
 		scan.close();
 	}
 	
 	@Override
 	public void printCommandInfo() {
-		System.out.println(" Find client by his name");
+		System.out.println("Find client by his name");
 	}
 
 }

@@ -87,6 +87,12 @@ public class BankServiceImpl implements BankService{
 		}
 	}
 
+	@Override
+	public Client getClient(Bank bank, String clientName) {
+		
+		return bank.getClientsMap().get(clientName);
+	}
+
 }
 
 
