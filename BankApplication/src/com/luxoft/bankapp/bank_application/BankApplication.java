@@ -5,6 +5,7 @@ import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 import com.luxoft.bankapp.handling_exceptions.OverDraftLimitExceededException;
 import com.luxoft.bankapp.model.Account;
 import com.luxoft.bankapp.model.Bank;
+import com.luxoft.bankapp.model.BankReport;
 import com.luxoft.bankapp.model.CheckingAccount;
 import com.luxoft.bankapp.model.Client;
 import com.luxoft.bankapp.model.Gender;
@@ -80,8 +81,10 @@ public class BankApplication {
 			System.out.println("Not enough Funds. Maximum of what you can get is " + e.getAmount());
 			e.printStackTrace();
 		}
-
-
+		
+		
+		BankReport bp=new BankReport();
+		bp.getClientsSorted(bank);
 
 		
 	}

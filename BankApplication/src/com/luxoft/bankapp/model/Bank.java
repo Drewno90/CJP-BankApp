@@ -1,13 +1,16 @@
 package com.luxoft.bankapp.model;
 
-import java.util.ArrayList;
+
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
 
 
 public class Bank implements Report{
-	private List<Client> clientsList=new ArrayList<Client>();
-	List<ClientRegistrationListener> listeners = new ArrayList<ClientRegistrationListener>();
+	private Set<Client> clientsList=new TreeSet<Client>();
+	Set<ClientRegistrationListener> listeners = new HashSet<ClientRegistrationListener>();
 	private String bankName;
 	
 	public String getBankName() {
@@ -44,7 +47,7 @@ public class Bank implements Report{
 	}
 	
 	
-	public Bank(String bankName, List<Client> clientsList){
+	public Bank(String bankName, Set<Client> clientsList){
 		this.bankName=bankName;
 		registryEvent(new EmailNotificationListener());
 		registryEvent(new PrintClientListener());
@@ -62,8 +65,8 @@ public class Bank implements Report{
 		registryEvent(new PrintClientListener());
 	}
 	
-	public List<Client> getClients(){
-		return Collections.unmodifiableList(clientsList);
+	public Set<Client> getClients(){
+		return Collections.unmodifiableSet(clientsList);
 	}
 
 	@Override

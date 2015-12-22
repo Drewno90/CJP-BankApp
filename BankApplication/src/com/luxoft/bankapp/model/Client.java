@@ -1,19 +1,19 @@
 package com.luxoft.bankapp.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Client implements Report{
+public class Client implements Report,Comparable<Client>{
 
 
-	
 	private String name;
-	private List<Account> accounts = new ArrayList<Account>();
+	private Set<Account> accounts = new HashSet<Account>();
 	private Account activeAccount;
 	private float initialOverdraft;
 	private String mailAddress;
 	private String phoneNumber;
+	private String city;
 	
 	private Gender clientGender;
 	
@@ -45,8 +45,8 @@ public class Client implements Report{
 		this.activeAccount=account;
 	}
 	
-	public List<Account> getAccounts(){
-		return Collections.unmodifiableList(accounts);
+	public Set<Account> getAccounts(){
+		return Collections.unmodifiableSet(accounts);
 	}
 	
 	@Override
@@ -78,7 +78,7 @@ public class Client implements Report{
 	public Account getActiveAccount() {
 		return activeAccount;
 	}
-	public void setAccounts(List<Account> accounts) {
+	public void setAccounts(Set<Account> accounts) {
 		this.accounts = accounts;
 	}
 	
@@ -159,7 +159,21 @@ public class Client implements Report{
 		return new StringBuffer().append("Client name=").append(name).append(", accounts=").append(accounts).append(", activeAccount=").append(activeAccount).append(", initialOverdraft=").append(initialOverdraft).append(", clientGender=").append(clientGender).toString();
 	
 	}
-	
+
+	@Override
+	public int compareTo(Client o) {
+
+		return this.getName().compareTo(o.getName());
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	
 }
 
