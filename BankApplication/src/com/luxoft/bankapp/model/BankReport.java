@@ -26,10 +26,9 @@ public void getBankCreditSum(Bank bank)
 	float credit=0;
 	for(Client client:bank.getClients())
 		for(Account account: client.getAccounts())
-			if(account instanceof CheckingAccount)
 				if(account.getBalance()<0)
 					credit+=account.getBalance();
-	System.out.println("Bank credit sum: " + credit);
+	System.out.println("Bank credit sum: " + -credit);
 }
 
 

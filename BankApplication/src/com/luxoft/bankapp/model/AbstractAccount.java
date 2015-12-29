@@ -1,16 +1,24 @@
 package com.luxoft.bankapp.model;
 
+import java.io.Serializable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.luxoft.bankapp.comands.AddClientCommand;
 import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 
-public abstract class AbstractAccount implements Account{
+public abstract class AbstractAccount implements Account, Serializable{
+
+	private final static Logger LOG = LoggerFactory.getLogger(AbstractAccount.class);
 
 	private float balance;
 	
 	AbstractAccount(float balance)
 	{
-		if(balance<=0)
+		if(balance<0)
 		{
-			System.out.println("Illegal argument");
+			LOG.warn("Illegal argument {}", balance);
 			throw new IllegalArgumentException(Float.toString(balance));
 		}
 		this.balance=balance;
@@ -36,7 +44,7 @@ public abstract class AbstractAccount implements Account{
 			this.balance-=amount;
 		else 
 		{
-			System.out.println("Not Enough Funds");
+			LOG.warn("Not Enough Funds");
 			throw new NotEnoughFundsException(balance);
 		}
 	}
@@ -49,7 +57,7 @@ public abstract class AbstractAccount implements Account{
 	@Override
 	public void decimalValue()
 	{
-		System.out.println(Math.round(balance));
+		LOG.debug("{}",Math.round(balance));
 	}
 	
 	@Override

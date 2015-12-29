@@ -4,15 +4,25 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import com.luxoft.bankapp.model.Bank;
-import com.luxoft.bankapp.model.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-class BankCommander {
+import com.luxoft.bankapp.bank_application.BankApplication;
+import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
+import com.luxoft.bankapp.model.Account;
+import com.luxoft.bankapp.model.Bank;
+import com.luxoft.bankapp.model.CheckingAccount;
+import com.luxoft.bankapp.model.Client;
+import com.luxoft.bankapp.model.Gender;
+import com.luxoft.bankapp.service.BankService;
+import com.luxoft.bankapp.service.BankServiceImpl;
+
+public class BankCommander {
 public static Bank currentBank = new Bank("MyBank");
 public static Client currentClient;
 public static Map<String, Command> commands= new TreeMap<String, Command>();
 
-
+private final static Logger LOG = LoggerFactory.getLogger(BankCommander.class);
 
     public static void initializeCommands(){
     	commands.put("1", new FindClientCommand());
@@ -23,6 +33,7 @@ public static Map<String, Command> commands= new TreeMap<String, Command>();
     	commands.put("6", new AddClientCommand());
     	commands.put("7", new Command() { // 7 - Exit Command
             public void execute() {
+        		LOG.info("System Stopped");
                 System.exit(0);
             }
             public void printCommandInfo() {
@@ -43,17 +54,29 @@ public static Map<String, Command> commands= new TreeMap<String, Command>();
     
     
     public static void main(String args[]) {
-    	
+    	BankService bankService=new BankServiceImpl();
+		LOG.info("System started");
+		try {
+			Client client1 = new Client("Benjamin",1700,Gender.MALE, "Krakow");
+			Account checkingAccount1 = new CheckingAccount(300, client1);
+			bankService.addAccount(client1,checkingAccount1);
+			bankService.setActiveAccount(client1,checkingAccount1);
+			bankService.addClient(currentBank, client1);
+			} catch (ClientExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	initializeCommands();
+        Scanner scan=new Scanner(System.in);
         while (true) {
            for (String commandNumber: commands.keySet()) { // show menu
                  System.out.print(commandNumber+") ");
                  commands.get(commandNumber).printCommandInfo();
            }
-           Scanner scan=new Scanner(System.in);
            String commandName = scan.nextLine();
            commands.get(commandName).execute();
-           scan.close();
+//           scan.close();
+
         }
         
 }

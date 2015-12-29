@@ -1,13 +1,22 @@
 package com.luxoft.bankapp.model;
 
+
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.luxoft.bankapp.comands.AddClientCommand;
 import com.luxoft.bankapp.handling_exceptions.OverDraftLimitExceededException;
 
-public class CheckingAccount extends AbstractAccount{
+public class CheckingAccount extends AbstractAccount {
 	
-	
+	private final static Logger LOG = LoggerFactory.getLogger(CheckingAccount.class);
 
 	private float overdraft;
-	
+	private String accountType="CheckingAccount";
+
+
 	public CheckingAccount(float balance) {
 		super(balance);
 		this.overdraft=0;
@@ -24,12 +33,12 @@ public class CheckingAccount extends AbstractAccount{
 		overdraft=client.getInitialOverdraft();
 		if(overdraft<0)
 		{
-			System.out.println("Illegal argument");
+			LOG.warn("Illegal argument");
 			throw new IllegalArgumentException(Float.toString(overdraft));
 		}
 		if(balance<-overdraft)
 		{
-			System.out.println("Illegal argument");
+			LOG.warn("Illegal argument");
 			throw new IllegalArgumentException(Float.toString(balance));
 		}	
 
@@ -40,7 +49,7 @@ public class CheckingAccount extends AbstractAccount{
 	{
 		if(overdraft<0)
 		{
-			System.out.println("Illegal argument");
+			LOG.warn("Illegal argument");
 			throw new IllegalArgumentException(Float.toString(overdraft));
 		}
 		this.overdraft=overdraft;
@@ -52,7 +61,7 @@ public class CheckingAccount extends AbstractAccount{
 			this.setBalance(getBalance()-amount);
 		else
 		{
-			System.out.println("Overdraft Limit Exceeded");
+			LOG.warn("Overdraft Limit Exceeded");
 			throw new OverDraftLimitExceededException( getBalance()-amount ,overdraft);
 		}
 	}
@@ -85,6 +94,22 @@ public class CheckingAccount extends AbstractAccount{
 		if (Float.floatToIntBits(overdraft) != Float.floatToIntBits(other.overdraft))
 			return false;
 		return true;
+	}
+
+
+	@Override
+	public void parseFeed(Map<String, String> feed) {
+		this.accountType=feed.get("accountType");
+		float balance = Float.parseFloat(feed.get("balance"));
+		this.setBalance(balance);
+		this.overdraft = Float.parseFloat(feed.get("overdraft"));
+	
+	}
+
+
+	@Override
+	public String getAccountType() {
+		return accountType;
 	}
 
 

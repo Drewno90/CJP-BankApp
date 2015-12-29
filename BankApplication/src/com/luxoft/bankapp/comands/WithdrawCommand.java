@@ -2,11 +2,15 @@ package com.luxoft.bankapp.comands;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.luxoft.bankapp.service.BankService;
 import com.luxoft.bankapp.service.BankServiceImpl;
 
 public class WithdrawCommand implements Command {
 
+	private final static Logger LOG = LoggerFactory.getLogger(WithdrawCommand.class);
 	
 	@Override
 	public void execute() {
@@ -17,9 +21,9 @@ public class WithdrawCommand implements Command {
 		BankService bankService= new BankServiceImpl();
 		
 		bankService.withdraw(BankCommander.currentClient, ammount);
+		LOG.debug("{} withdrawed from {} account", ammount, BankCommander.currentClient.getName());
 		
-		
-		scan.close();
+		//scan.close();
 	}
 
 	@Override

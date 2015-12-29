@@ -2,11 +2,15 @@ package com.luxoft.bankapp.comands;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.luxoft.bankapp.service.BankService;
 import com.luxoft.bankapp.service.BankServiceImpl;
 
 public class DepositCommand implements Command {
 
+	private final static Logger LOG = LoggerFactory.getLogger(DepositCommand.class);
 
 	@Override
 	public void execute() {
@@ -16,7 +20,8 @@ public class DepositCommand implements Command {
 		int ammount= new Integer(deposit);
 		BankService bankService= new BankServiceImpl();
 		bankService.deposit(BankCommander.currentClient, ammount);
-		scan.close();
+		LOG.debug("{} deposited on {} account", ammount, BankCommander.currentClient.getName());
+		//scan.close();
 	}
 
 	@Override

@@ -1,14 +1,30 @@
 package com.luxoft.bankapp.service;
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.luxoft.bankapp.bank_application.BankApplication;
 import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 import com.luxoft.bankapp.model.Account;
 import com.luxoft.bankapp.model.Bank;
 import com.luxoft.bankapp.model.Client;
 
+
 public class BankServiceImpl implements BankService{
 
+	public final static Logger LOG = LoggerFactory.getLogger(BankServiceImpl.class);
+	
+	private static final String FILE_OBJECT_DATA = "test.txt";
+	
 	@Override
 	public void addClient(Bank bank, Client client) throws ClientExistsException{
 		for(Client clientToCompare: bank.getClients())
@@ -44,7 +60,7 @@ public class BankServiceImpl implements BankService{
 				return client;
 			}
 		if(!flag)
-			System.out.println("There is no such a Client");
+			LOG.warn("There is no such a Client");
 		return null;
 	}
 
@@ -63,7 +79,7 @@ public class BankServiceImpl implements BankService{
 		try {
 			clientFromWhomTransfer.getActiveAccount().withdraw(ammount);
 		} catch (NotEnoughFundsException e) {
-			System.out.println("Not enough Funds. Maximum of what you can transfer is " + e.getAmount());
+			LOG.warn("Not Enough Funds. Maximum of what you can transfer is {}", e.getAmount());
 			e.printStackTrace();
 		}
 		
@@ -82,7 +98,7 @@ public class BankServiceImpl implements BankService{
 		try {
 			client.getActiveAccount().withdraw(ammount);
 		} catch (NotEnoughFundsException e) {
-			System.out.println("Not enough Funds. Maximum of what you can get is " + e.getAmount());
+			LOG.warn("Not enough Funds. Maximum of what you can get is {}", e.getAmount());
 			e.printStackTrace();
 		}
 	}
@@ -91,6 +107,49 @@ public class BankServiceImpl implements BankService{
 	public Client getClient(Bank bank, String clientName) {
 		
 		return bank.getClientsMap().get(clientName);
+	}
+
+	@Override
+	public void saveClient(Client client) {
+
+		try {
+			FileOutputStream fos = new FileOutputStream(FILE_OBJECT_DATA);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(client);
+			oos.close();
+			fos.close();
+		} catch (FileNotFoundException e) {
+			LOG.error("File not found");
+			e.printStackTrace();
+		} catch (IOException e) {
+			LOG.error(e.getMessage());
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public Client loadClient() {
+
+		Client client = null;
+		try {
+			FileInputStream fis = new FileInputStream(FILE_OBJECT_DATA);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			client=(Client) ois.readObject();
+			ois.close();
+			fis.close();
+		} catch (FileNotFoundException e) {
+			LOG.error("File not found");
+			e.printStackTrace();
+		} catch (IOException e) {
+			LOG.error(e.getMessage());
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			LOG.error("No such class");
+			e.printStackTrace();
+		}
+
+		return client;
 	}
 
 }

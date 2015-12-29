@@ -1,6 +1,6 @@
 package com.luxoft.bankapp.model;
 
-
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -8,9 +8,17 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.luxoft.bankapp.comands.AddClientCommand;
 
 
-public class Bank implements Report{
+
+public class Bank implements Report,Serializable{
+
+	private final static Logger LOG = LoggerFactory.getLogger(Bank.class);	
+	
 	private Set<Client> clientsList=new TreeSet<Client>();
 	private Map<String, Client> clientsMap= new TreeMap<String, Client>();
 
@@ -33,7 +41,7 @@ public class Bank implements Report{
 	public class EmailNotificationListener implements ClientRegistrationListener{
 
 		public void onClientAdded(Client client){
-			System.out.println("Notification email for client "+client.getName()  +" to be sent");
+			LOG.debug("Notification email for client {} to be sent", client.getName());
 		}	
 	}
 	
@@ -105,6 +113,25 @@ public class Bank implements Report{
 	public void setClientsMap(Map<String, Client> clientsMap) {
 		this.clientsMap = clientsMap;
 	}
+	
+	public void parseFeed(Map<String, String> feed) {
+         String name = feed.get("name"); 
+         Client client=null;
+         
+         if (feed.get("gender").equals("m")) {
+             client = new Client(name, Gender.MALE, Float.parseFloat(feed.get("overdraft")));
+         } else if (feed.get("gender").equals("f")) {
+             client = new Client(name, Gender.FEMALE, Float.parseFloat(feed.get("overdraft")));
+         }          
+
+         if (clientsMap.get(name)==null) { 
+               client = new Client(name);
+               clientsMap.put(name, client);
+         }
+
+         client.parseFeed(feed);
+    }
+	
 
 }
 

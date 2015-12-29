@@ -2,6 +2,9 @@ package com.luxoft.bankapp.comands;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.luxoft.bankapp.model.Client;
 import com.luxoft.bankapp.service.BankService;
 import com.luxoft.bankapp.service.BankServiceImpl;
@@ -10,6 +13,7 @@ import com.luxoft.bankapp.service.BankServiceImpl;
 
 public class TransferCommand implements Command {
 
+	private final static Logger LOG = LoggerFactory.getLogger(TransferCommand.class);
 	
 	@Override
 	public void execute() {
@@ -25,8 +29,8 @@ public class TransferCommand implements Command {
 		int ammount= new Integer(transfer);
 		
 		bankService.transfer(BankCommander.currentClient, clientToWhomTransfer, ammount);
-		
-		scan.close();
+		LOG.debug("{} transfered from {} to {}", ammount, BankCommander.currentClient.getName(), clientToWhomTransfer.getName());
+		//scan.close();
 	}
 
 	@Override
