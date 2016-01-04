@@ -83,7 +83,7 @@ public class BankApplication {
 	
 	public static void main(String[] args) throws ClientExistsException{
 		System.out.println("Hello in bank app");
-		Bank bank = initialize();
+		Bank bank = BankApplication.initialize();
 	
 
 		try {

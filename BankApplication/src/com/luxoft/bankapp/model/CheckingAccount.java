@@ -6,7 +6,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.luxoft.bankapp.comands.AddClientCommand;
 import com.luxoft.bankapp.handling_exceptions.OverDraftLimitExceededException;
 
 public class CheckingAccount extends AbstractAccount {

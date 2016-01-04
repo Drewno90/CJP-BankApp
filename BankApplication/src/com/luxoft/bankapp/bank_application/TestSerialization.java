@@ -14,7 +14,7 @@ public class TestSerialization {
 	public static void main(String[] args) {
 		
 		BankFeedService bankFeedService = new BankFeedServiceImpl();
-	//	bankFeedService.loadFeed();
+		bankFeedService.loadFeed();
 		BankServiceImpl bankService = new BankServiceImpl();
 		Client client1 = new Client("Tom",1600,Gender.MALE, "Warsaw");
 		Account savingAccount = new SavingAccount(300);

@@ -11,14 +11,13 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.luxoft.bankapp.comands.AddClientCommand;
 import com.luxoft.bankapp.comands.BankCommander;
 
 public class BankFeedServiceImpl implements BankFeedService{
 
 	private final static Logger LOG = LoggerFactory.getLogger(BankFeedServiceImpl.class);
 	
-	public static final String FILE_PATH = "test.txt";
+	public static final String FILE_PATH = "test2.txt";
 	
 	
 	@Override

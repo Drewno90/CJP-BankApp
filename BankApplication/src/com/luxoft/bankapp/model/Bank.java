@@ -11,8 +11,6 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.luxoft.bankapp.comands.AddClientCommand;
-
 
 
 public class Bank implements Report,Serializable{
