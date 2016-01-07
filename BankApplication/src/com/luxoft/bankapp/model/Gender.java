@@ -6,7 +6,7 @@ public enum Gender {
 	
 	private String salut;
 
-	private Gender(final String salut) {
+	Gender(final String salut) {
 		this.salut = salut;
 	}
 

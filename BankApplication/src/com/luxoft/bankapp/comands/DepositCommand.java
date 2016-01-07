@@ -21,7 +21,7 @@ public class DepositCommand implements Command {
 		BankService bankService= new BankServiceImpl();
 		bankService.deposit(BankCommander.currentClient, ammount);
 		LOG.debug("{} deposited on {} account", ammount, BankCommander.currentClient.getName());
-		//scan.close();
+
 	}
 
 	@Override

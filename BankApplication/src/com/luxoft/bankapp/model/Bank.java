@@ -15,6 +15,11 @@ import org.slf4j.LoggerFactory;
 
 public class Bank implements Report,Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4067874232984875533L;
+
 	private final static Logger LOG = LoggerFactory.getLogger(Bank.class);	
 	
 	private Set<Client> clientsList=new TreeSet<Client>();
@@ -32,11 +37,18 @@ public class Bank implements Report,Serializable{
 		this.bankName = bankName;
 	}
 
-	public interface ClientRegistrationListener {
+	public interface ClientRegistrationListener extends Serializable{
 		public void onClientAdded(Client client);
 	}
 
 	public class EmailNotificationListener implements ClientRegistrationListener{
+
+
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 7278733256810148823L;
 
 		public void onClientAdded(Client client){
 			LOG.debug("Notification email for client {} to be sent", client.getName());
@@ -44,6 +56,11 @@ public class Bank implements Report,Serializable{
 	}
 	
 	public class PrintClientListener implements ClientRegistrationListener{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -2309265246571143610L;
 
 		public void onClientAdded(Client client)
 		{

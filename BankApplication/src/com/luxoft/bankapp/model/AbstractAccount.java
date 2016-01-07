@@ -9,6 +9,11 @@ import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 
 public abstract class AbstractAccount implements Account, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 671200949153231095L;
+
 	private final static Logger LOG = LoggerFactory.getLogger(AbstractAccount.class);
 
 	private float balance;

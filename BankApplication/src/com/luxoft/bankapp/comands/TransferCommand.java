@@ -30,7 +30,7 @@ public class TransferCommand implements Command {
 		
 		bankService.transfer(BankCommander.currentClient, clientToWhomTransfer, ammount);
 		LOG.debug("{} transfered from {} to {}", ammount, BankCommander.currentClient.getName(), clientToWhomTransfer.getName());
-		//scan.close();
+
 	}
 
 	@Override

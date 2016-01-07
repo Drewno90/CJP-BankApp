@@ -17,13 +17,12 @@ public class WithdrawCommand implements Command {
 		Scanner scan=new Scanner(System.in);
 		System.out.println("How much you want to withdraw?");
 		String withdraw = scan.nextLine();
-		int ammount= new Integer(withdraw);
+		float ammount= new Float(withdraw);
 		BankService bankService= new BankServiceImpl();
 		
 		bankService.withdraw(BankCommander.currentClient, ammount);
 		LOG.debug("{} withdrawed from {} account", ammount, BankCommander.currentClient.getName());
 		
-		//scan.close();
 	}
 
 	@Override

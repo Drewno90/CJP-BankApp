@@ -51,8 +51,7 @@ public class AddClientCommand implements Command {
 			LOG.warn("This client already exists!");
 			e.printStackTrace();
 		}
-		
-		//scan.close();
+
 	}
 
 	@Override

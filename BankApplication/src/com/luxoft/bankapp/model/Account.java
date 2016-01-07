@@ -1,10 +1,11 @@
 package com.luxoft.bankapp.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 
-public interface Account extends Report{
+public interface Account extends Report, Serializable{
 
 	public float getBalance();
 	public void deposit(float ammount);

@@ -10,6 +10,11 @@ import com.luxoft.bankapp.handling_exceptions.OverDraftLimitExceededException;
 
 public class CheckingAccount extends AbstractAccount {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2534569569012788542L;
+
 	private final static Logger LOG = LoggerFactory.getLogger(CheckingAccount.class);
 
 	private float overdraft;

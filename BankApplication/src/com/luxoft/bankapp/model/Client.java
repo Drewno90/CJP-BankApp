@@ -14,6 +14,11 @@ import com.luxoft.bankapp.handling_exceptions.FeedException;
 
 public class Client implements Report, Comparable<Client>, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4492568206812651133L;
+
 	private final static Logger LOG = LoggerFactory.getLogger(Client.class);
 
 	private String name;

@@ -7,6 +7,11 @@ import org.slf4j.LoggerFactory;
 
 public class SavingAccount extends AbstractAccount {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3918357958919593204L;
+
 	private final static Logger LOG = LoggerFactory.getLogger(SavingAccount.class);
 	
 	private String accountType="SavingAccount";
