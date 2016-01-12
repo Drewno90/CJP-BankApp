@@ -14,6 +14,7 @@ import com.luxoft.bankapp.handling_exceptions.FeedException;
 
 public class Client implements Report, Comparable<Client>, Serializable{
 
+
 	/**
 	 * 
 	 */

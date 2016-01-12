@@ -10,6 +10,7 @@ import com.luxoft.bankapp.handling_exceptions.OverDraftLimitExceededException;
 
 public class CheckingAccount extends AbstractAccount {
 	
+
 	/**
 	 * 
 	 */

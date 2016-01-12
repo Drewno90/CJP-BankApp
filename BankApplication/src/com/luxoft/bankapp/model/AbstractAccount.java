@@ -9,6 +9,7 @@ import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 
 public abstract class AbstractAccount implements Account, Serializable{
 
+
 	/**
 	 * 
 	 */
