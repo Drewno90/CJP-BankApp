@@ -20,7 +20,6 @@ import com.luxoft.bankapp.model.Gender;
 import com.luxoft.bankapp.model.SavingAccount;
 import com.luxoft.bankapp.service.BankServiceImpl;
 
-import junit.framework.Assert;
 
 public class TestBankService {
 
@@ -70,7 +69,7 @@ public class TestBankService {
 		bankService.setActiveAccount(client1,savingAccount);
 		float balanceBefore = client1.getBalance();
 		bankService.withdraw(client1, 200); 
-		Assert.assertEquals( balanceBefore-200, client1.getBalance()); 
+		assertEquals( balanceBefore-200, client1.getBalance(), 0); 
 	}
 	
 	@Test
@@ -80,7 +79,7 @@ public class TestBankService {
 		bankService.setActiveAccount(client1,savingAccount);
 		float balanceBefore = client1.getBalance();
 		bankService.deposit(client1, 500); 
-		Assert.assertEquals( balanceBefore+500, client1.getBalance()); 
+		assertEquals( balanceBefore+500, client1.getBalance(),0); 
 	}
 	
 	@Test
@@ -179,3 +178,4 @@ public class TestBankService {
 	}
 	
 }
+

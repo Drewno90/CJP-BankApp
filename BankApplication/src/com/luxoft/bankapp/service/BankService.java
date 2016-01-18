@@ -1,11 +1,13 @@
 package com.luxoft.bankapp.service;
 
+import java.io.Serializable;
+
 import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.model.Account;
 import com.luxoft.bankapp.model.Bank;
 import com.luxoft.bankapp.model.Client;
 
-public interface BankService {
+public interface BankService extends Serializable{
 
     public void addClient(Bank bank,Client client) throws ClientExistsException;
     public void removeClient(Bank bank,Client client);
@@ -21,6 +23,7 @@ public interface BankService {
 	public Client loadClient();
 
 }
+
 
 
 

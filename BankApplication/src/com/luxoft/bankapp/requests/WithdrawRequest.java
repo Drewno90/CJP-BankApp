@@ -1,10 +1,8 @@
 package com.luxoft.bankapp.requests;
 
-import com.luxoft.bankapp.bank_application.BankServer;
+import com.luxoft.bankapp.comands.BankCommander;
 import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
-import com.luxoft.bankapp.handling_exceptions.OverDraftLimitExceededException;
-import com.luxoft.bankapp.model.Bank;
-import com.luxoft.bankapp.model.Client;
+import com.luxoft.bankapp.service.BankService;
 
 public class WithdrawRequest implements Request {
 
@@ -12,15 +10,15 @@ public class WithdrawRequest implements Request {
 	 * 
 	 */
 	private static final long serialVersionUID = 5796215966552026686L;
-	private String clientName;
-	private Bank bank;
 	private float ammount;
-
-	public WithdrawRequest(String clientName, Bank bank, float ammount)
+	private BankService bankService;
+	private String clientName;
+	
+	public WithdrawRequest(float ammount, BankService bankService, String name)
 	{
-		this.clientName=clientName;
-		this.bank=bank;
 		this.ammount=ammount;
+		this.bankService=bankService;
+		this.clientName=name;
 	}
 	
 	@Override
@@ -31,30 +29,16 @@ public class WithdrawRequest implements Request {
 
 	@Override
 	public String execute() {
-		
-		Client client = BankServer.bankService.getClient(bank, clientName);
-	  	
-	  	
-	  	int flag=0;
-	  	do{
 
-    	  	try{
-    	  		flag=0;
-    	  		client.getActiveAccount().withdraw(ammount);
-    	  	} catch (OverDraftLimitExceededException e)
-    	  	{
-    	  		flag=1;
-    	  		return ("Overdraft Limit Exceeded. Maximum you can get is " + e.GetMaximumAmmountToGet() + " Try again.");
-    	  		
-    	  	}catch (NotEnoughFundsException e)
-    	  	{
-    	  		flag=1;
-    	  		return ("Not enough founds on your account. Maximum you can get is " + e.getAmount());
-    	  	}
-    	  	
-	  		}while(flag==1);
+    	  		try {
+					bankService.findClientByHisName(BankCommander.currentBank, clientName).getActiveAccount().withdraw(ammount);
+				} catch (NotEnoughFundsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	  	
 	  	return ("Please take your money from ATM");
 		}
 
 }
+

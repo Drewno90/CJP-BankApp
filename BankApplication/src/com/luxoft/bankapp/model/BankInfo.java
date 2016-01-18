@@ -35,3 +35,4 @@ public class BankInfo implements Serializable{
 	}
 	
 }
+

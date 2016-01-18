@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.luxoft.bankapp.comands.BankCommander;
+import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.requests.Request;
  
 import com.luxoft.bankapp.service.BankServiceImpl;
@@ -27,7 +29,7 @@ public class BankServer {
           try {
 
                 // 1. creating a server socket
-                providerSocket = new ServerSocket(2015, 10);
+                providerSocket = new ServerSocket(9090);
 
                 // 2. Wait for connection
 
@@ -103,9 +105,16 @@ public class BankServer {
     
     public static void main(final String args[]) {
 
+    	try {
+    		BankCommander.currentBank=BankApplication.initialize();
+    	} catch (ClientExistsException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
           BankServer server = new BankServer();
           while (true) {
                 server.run();
           }
     }
 }
+

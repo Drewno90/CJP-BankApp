@@ -1,9 +1,7 @@
 package com.luxoft.bankapp.requests;
 
-import com.luxoft.bankapp.bank_application.BankServer;
-import com.luxoft.bankapp.model.Bank;
-import com.luxoft.bankapp.model.Client;
-
+import com.luxoft.bankapp.comands.BankCommander;
+import com.luxoft.bankapp.service.BankServiceImpl;
 
 public class ClientInfoRequest implements Request{
 
@@ -13,12 +11,11 @@ public class ClientInfoRequest implements Request{
 	 */
 	private static final long serialVersionUID = -4824088526708657801L;
 	private String clientName;
-	private Bank bank;
-	private Client client;
-
-	public ClientInfoRequest(String clientName, Bank currentBank) {
+	private BankServiceImpl bankService;
+	
+	public ClientInfoRequest(String clientName, BankServiceImpl bankService) {
+		this.bankService=bankService;
 		this.clientName=clientName;
-		this.bank=currentBank;
 	}
 
 	@Override
@@ -29,10 +26,10 @@ public class ClientInfoRequest implements Request{
 
 	@Override
 	public String execute() {
-		client = BankServer.bankService.findClientByHisName(bank, clientName);
-		bank.removeClientFromList(client);
-	  	return new StringBuffer().append("Client name=").append(client.getName()).append(", accounts=").append(client.getAccounts()).append(", activeAccount=").append(client.getActiveAccount()).append(", initialOverdraft=").append(client.getInitialOverdraft()).append(", clientGender=").append(client.getClientGender()).toString();
+		BankCommander.currentClient=bankService.findClientByHisName(BankCommander.currentBank, clientName);
+	  	return new StringBuffer().append("Client name=").append(BankCommander.currentClient.getName()).append(", accounts=").append(BankCommander.currentClient.getAccounts()).append(", activeAccount=").append(BankCommander.currentClient.getActiveAccount()).append(", initialOverdraft=").append(BankCommander.currentClient.getInitialOverdraft()).append(", clientGender=").append(BankCommander.currentClient.getClientGender()).toString();
 
 	}
 
 }
+

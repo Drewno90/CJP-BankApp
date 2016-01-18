@@ -1,7 +1,8 @@
 package com.luxoft.bankapp.requests;
 
-import com.luxoft.bankapp.bank_application.BankServer;
+import com.luxoft.bankapp.comands.BankCommander;
 import com.luxoft.bankapp.model.Bank;
+import com.luxoft.bankapp.service.BankService;
 
 
 
@@ -13,13 +14,12 @@ public class BalanceRequest  implements Request {
 	 */
 	private static final long serialVersionUID = -1572780270699243195L;
 	String clientName;
-	private Bank bank;
-
+	BankService bankService;
 	
-	public BalanceRequest(String clientName, Bank bank)
+	public BalanceRequest(String clientName,  BankService bankService)
 	{
 		this.clientName=clientName;
-		this.bank=bank;
+		this.bankService=bankService;
 	}
 	
 	public void printInfo() {
@@ -29,10 +29,11 @@ public class BalanceRequest  implements Request {
 
 	@Override
 	public String execute(){
-		float balance = BankServer.bankService.getClient(bank, clientName).getBalance();
+		float balance = bankService.findClientByHisName(BankCommander.currentBank, clientName).getActiveAccount().getBalance();
 		return "Your Balance is " + balance;
 		
 	}
 
 
 }
+

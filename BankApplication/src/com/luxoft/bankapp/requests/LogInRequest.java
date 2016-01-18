@@ -2,6 +2,7 @@ package com.luxoft.bankapp.requests;
 
 public class LogInRequest implements Request {
 
+
 	/**
 	 * 
 	 */
@@ -24,3 +25,4 @@ public class LogInRequest implements Request {
 	}
 
 }
+

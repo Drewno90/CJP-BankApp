@@ -10,3 +10,4 @@ public class FeedException extends RuntimeException {
          super(message);
     }
 }
+

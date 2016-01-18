@@ -52,11 +52,6 @@ public class BankClient {
                 in = new ObjectInputStream(requestSocket.getInputStream());
 
                 
-                try {
-					BankCommander.currentBank = BankApplication.initialize();
-				} catch (ClientExistsException e) {
-					e.printStackTrace();
-				}
                 // 3: Communicating with the server
                 do {
                 	try {
@@ -69,7 +64,7 @@ public class BankClient {
                 	{
 						e.printStackTrace();
 					}
-                } while (!message.equals("bye"));
+                } while (!message.equals("Logged out"));
           } catch (UnknownHostException unknownHost) {
         	  
                 System.err.println("You are trying to connect to an unknown host!");
@@ -115,8 +110,10 @@ public class BankClient {
     {
     	if(selection.equals("1"))
     		return new BankServer();
-    	else
+    	else if(selection.equals("2"))
     		return new BankRemoteOffice();
+    	else
+    		return null;
     }
     
     private Client addNewClient()
@@ -156,7 +153,7 @@ public class BankClient {
     	if(bankServer instanceof BankRemoteOffice)
     	{
         	if(selection.equals("1"))
-    			return new BankStatisticsRequest(BankCommander.currentBank);
+    			return new BankStatisticsRequest();
     		else if(selection.equals("2"))
     		{
     			System.out.println("Pass client name to find");
@@ -166,12 +163,12 @@ public class BankClient {
 				} catch (IOException e) {
 					LOG.warn("IO exception in function selectRequest");
 				}
-    			return new ClientInfoRequest(clientName, BankCommander.currentBank);
+    			return new ClientInfoRequest(clientName, bankService);
     		}
     		else if(selection.equals("3"))
     		{
     			Client client = addNewClient();
-    			return new ClientAddRequest(client, BankCommander.currentBank);
+    			return new ClientAddRequest(client);
     		}
     		else if(selection.equals("4"))
     		{
@@ -182,11 +179,10 @@ public class BankClient {
 				} catch (IOException e) {
 					LOG.warn("IO exception in function selectRequest");
 				}
-    			return new ClientRemoveRequest(clientName, BankCommander.currentBank);
+    			return new ClientRemoveRequest(clientName,  bankService);
     		}
     		else if(selection.equals("5"))
     		{
-    			message="bye";
     			return new LogOutRequest();
     		}
     		else
@@ -198,7 +194,7 @@ public class BankClient {
     	else
     	{
     		if(selection.equals("1"))
-    			return new BalanceRequest(clientName,BankCommander.currentBank);
+    			return new BalanceRequest(clientName, bankService);
     		else if(selection.equals("2"))
     		{
     			float ammount=0;
@@ -213,11 +209,10 @@ public class BankClient {
 					LOG.warn("IO exception in function selectRequest");
 		
 				}
-    			return new WithdrawRequest(clientName,BankCommander.currentBank, ammount);
+    			return new WithdrawRequest(ammount, bankService, clientName);
     		}
     		else if(selection.equals("3"))
     		{
-    			message="bye";
     			return new LogOutRequest();
     		}
     		else
@@ -233,10 +228,10 @@ public class BankClient {
     	
 	  	while(bankService.findClientByHisName(BankCommander.currentBank, name)==null)
 	  	{
-	  		System.out.println("There is no such a client. Please try again.");
+	  		System.out.println("There is no such a client. Please try again or press exit.");
 	  		name = bufferedReader.readLine();
-	  		if (BankClient.message.equals("bye"))
-	  			System.exit(0);;
+	  		if (name.equals("exit"))
+	  			System.exit(0);
 	  	}
 	  	return name;
     }
@@ -248,24 +243,27 @@ public class BankClient {
 			try {
 				System.out.println("Enter your name: ");
 				clientName = bufferedReader.readLine();
-				clientName = verifyClient(clientName);
+			//	clientName = verifyClient(clientName);
 				return new LogInRequest(clientName);
 			} catch (IOException e) {
 				LOG.warn("IO exception in function make Request");
-			} catch (ClassNotFoundException e) {
-				LOG.warn("Class not found exception in function make Request");
-
-			}
+			} //		catch (ClassNotFoundException e) {
+//				LOG.warn("Class not found exception in function make Request");
+//
+//			}
 		}
     	else
     	{
+    		BankServer bankServer = null;
     		System.out.println("Select bank Service: \n 1.Bank \n 2.Bank Remote Office ");
     		String selection = bufferedReader.readLine();
-    		
-    		BankServer bankServer = selectBankService(selection);
-    		bankServer.displayMenu();
-    		selection = bufferedReader.readLine();
-    		return selectRequest(selection, bankServer);
+
+	    		bankServer = selectBankService(selection);
+	    		bankServer.displayMenu();
+	    		selection = bufferedReader.readLine();
+	    		return selectRequest(selection, bankServer);
+
+
 
     	}
     	
@@ -281,3 +279,4 @@ public class BankClient {
 
 
 }
+

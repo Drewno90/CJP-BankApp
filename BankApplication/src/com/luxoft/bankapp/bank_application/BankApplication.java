@@ -26,8 +26,8 @@ public class BankApplication {
 		Client client1 = new Client("Tom",1600,Gender.MALE, "Warsaw");
 		bankService.addClient(bank, client1);
 		LOG.debug("Client {} added", client1.getName());
-		Account savingAccount = new SavingAccount(300);
-		Account checkingAccount = new CheckingAccount(300, client1);
+		Account savingAccount = new SavingAccount(1000);
+		Account checkingAccount = new CheckingAccount(1000, client1);
 		bankService.addAccount(client1,savingAccount);
 		bankService.addAccount(client1,checkingAccount);
 		bankService.setActiveAccount(client1,checkingAccount);
@@ -105,6 +105,7 @@ public class BankApplication {
 	}
 
 }
+
 
 
 

@@ -1,6 +1,5 @@
 package com.luxoft.bankapp.requests;
 
-import com.luxoft.bankapp.bank_application.BankClient;
 
 public class LogOutRequest implements Request{
 
@@ -18,8 +17,8 @@ public class LogOutRequest implements Request{
 
 	@Override
 	public String execute() {
-		BankClient.message="bye";
 	  	return ("Logged out");
 	}
 
 }
+
