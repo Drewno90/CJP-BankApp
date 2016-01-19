@@ -29,6 +29,7 @@ public class Bank implements Report,Serializable{
 
 	Set<ClientRegistrationListener> listeners = new HashSet<ClientRegistrationListener>();
 	private String bankName;
+	private int id;
 	
 	public String getBankName() {
 		return bankName;
@@ -147,6 +148,14 @@ public class Bank implements Report,Serializable{
 
          client.parseFeed(feed);
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 
 }

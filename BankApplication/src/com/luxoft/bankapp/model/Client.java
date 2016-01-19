@@ -29,7 +29,7 @@ public class Client implements Report, Comparable<Client>, Serializable{
 	private String mailAddress;
 	private String phoneNumber;
 	private String city;
-	
+	private int id;
 	private Gender clientGender;
 	
 	public Client(String name, Gender gender, float overdraft)
@@ -246,6 +246,14 @@ public class Client implements Report, Comparable<Client>, Serializable{
         
          acc.parseFeed(feed);
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }
 	
 

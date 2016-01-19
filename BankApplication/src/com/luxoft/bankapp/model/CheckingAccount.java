@@ -20,7 +20,7 @@ public class CheckingAccount extends AbstractAccount {
 
 	private float overdraft;
 	private String accountType="CheckingAccount";
-
+	private int id;
 
 	public CheckingAccount(float balance) {
 		super(balance);
@@ -115,6 +115,16 @@ public class CheckingAccount extends AbstractAccount {
 	@Override
 	public String getAccountType() {
 		return accountType;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 

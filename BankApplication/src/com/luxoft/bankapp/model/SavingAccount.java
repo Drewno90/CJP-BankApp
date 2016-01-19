@@ -16,7 +16,7 @@ public class SavingAccount extends AbstractAccount {
 	private final static Logger LOG = LoggerFactory.getLogger(SavingAccount.class);
 	
 	private String accountType="SavingAccount";
-	
+	private int id;
 	public SavingAccount(float balance) {
 		super(balance);
 	}
@@ -46,6 +46,14 @@ public class SavingAccount extends AbstractAccount {
 	@Override
 	public String getAccountType() {
 		return accountType;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }
