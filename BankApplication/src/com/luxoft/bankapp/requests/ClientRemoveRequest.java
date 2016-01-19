@@ -1,7 +1,6 @@
 package com.luxoft.bankapp.requests;
 
 import com.luxoft.bankapp.comands.BankCommander;
-import com.luxoft.bankapp.model.Bank;
 import com.luxoft.bankapp.service.BankService;
 
 

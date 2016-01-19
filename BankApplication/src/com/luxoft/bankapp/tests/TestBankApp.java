@@ -12,8 +12,7 @@ public class TestBankApp {
 
 	@Test
 	public void bankInitialization() throws ClientExistsException{
-		BankApplication bp = new BankApplication();
-		Bank bank = bp.initialize();
+		Bank bank = BankApplication.initialize();
 		assertTrue(bank!=null);
 	}
 	

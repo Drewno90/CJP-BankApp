@@ -89,6 +89,11 @@ public class ServerThread implements Runnable {
     {
 		System.out.println("Choose number of operation to perform: \n 1.Check balance \n 2.Withdraw \n 3.Log out");	
     }
+
+	public Bank getBank() {
+		return bank;
+	}
+
     
 }
 	

@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.luxoft.bankapp.comands.BankCommander;
-import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.model.Client;
 import com.luxoft.bankapp.model.Gender;
 import com.luxoft.bankapp.requests.BalanceRequest;
@@ -40,7 +39,7 @@ public class BankClient {
     BankServiceImpl bankService = new BankServiceImpl();
     
     
-    void run() {
+    public void run() {
           try {
                 // 1. creating a socket to connect to the server
                 requestSocket = new Socket(SERVER, 9090);
@@ -243,14 +242,14 @@ public class BankClient {
 			try {
 				System.out.println("Enter your name: ");
 				clientName = bufferedReader.readLine();
-			//	clientName = verifyClient(clientName);
+				clientName = verifyClient(clientName);
 				return new LogInRequest(clientName);
 			} catch (IOException e) {
 				LOG.warn("IO exception in function make Request");
-			} //		catch (ClassNotFoundException e) {
-//				LOG.warn("Class not found exception in function make Request");
-//
-//			}
+			} 		catch (ClassNotFoundException e) {
+				LOG.warn("Class not found exception in function make Request");
+
+			}
 		}
     	else
     	{

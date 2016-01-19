@@ -1,9 +1,5 @@
 package com.luxoft.bankapp.tests;
 
-
-
-import org.junit.Assert;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -11,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.luxoft.bankapp.bank_application.BankApplication;
@@ -114,6 +111,8 @@ public class BankServerThreadedTest {
 	System.out.println(ammount2);
 	Assert.assertEquals(ammount-1000, ammount2, 0);
 	}
+	
+	
 	
 }
 

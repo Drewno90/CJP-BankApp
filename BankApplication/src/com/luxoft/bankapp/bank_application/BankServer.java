@@ -25,7 +25,7 @@ public class BankServer {
     public static BankServiceImpl bankService = new BankServiceImpl();
   
     
-    void run() {
+    public void run() {
           try {
 
                 // 1. creating a server socket
