@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 
-public class BaseDAOImpl {
+public class BaseDAOImpl implements BaseDAO {
 
     Connection conn;
 

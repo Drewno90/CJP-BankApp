@@ -1,5 +1,6 @@
 package com.luxoft.bankapp.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.luxoft.bankapp.handling_exceptions.DAOException;
@@ -11,7 +12,7 @@ interface AccountDAO {
 
     public void add(Account account) throws DAOException;
 
-    public void removeByClientId(int idClient) throws DAOException;
+    public void removeByClientId(int idClient) throws DAOException, SQLException;
 
     public List<Account> getClientAccounts(int idClient) throws DAOException;
 

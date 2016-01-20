@@ -24,6 +24,14 @@ public class Bank implements Report,Serializable{
 	private final static Logger LOG = LoggerFactory.getLogger(Bank.class);	
 	
 	private Set<Client> clientsList=new TreeSet<Client>();
+	public Set<Client> getClientsList() {
+		return clientsList;
+	}
+
+	public void setClientsList(Set<Client> clientsList) {
+		this.clientsList = clientsList;
+	}
+
 	private Map<String, Client> clientsMap= new TreeMap<String, Client>();
 
 

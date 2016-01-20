@@ -18,6 +18,7 @@ public abstract class AbstractAccount implements Account, Serializable{
 	private final static Logger LOG = LoggerFactory.getLogger(AbstractAccount.class);
 
 	private float balance;
+	private int clientId;
 	
 	AbstractAccount(float balance)
 	{
@@ -90,6 +91,14 @@ public abstract class AbstractAccount implements Account, Serializable{
 	@Override
 	public String toString() {
 		return "AbstractAccount balance=" + balance ;
+	}
+
+	public int getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
 	}
 
 

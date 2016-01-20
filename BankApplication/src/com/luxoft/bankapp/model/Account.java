@@ -13,6 +13,7 @@ public interface Account extends Report, Serializable{
 	public void decimalValue();
 	public String getAccountType();
 	public void parseFeed(Map<String,String> feed);
+	public int getClientId();
 	
 }
 

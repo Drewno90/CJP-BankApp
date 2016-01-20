@@ -8,6 +8,6 @@ public interface BaseDAO {
 
     Connection openConnection() throws DAOException;
 
-Connection closeConnection();
+	void closeConnection();
 
 }

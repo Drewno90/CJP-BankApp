@@ -31,6 +31,7 @@ public class Client implements Report, Comparable<Client>, Serializable{
 	private String city;
 	private int id;
 	private Gender clientGender;
+	private int bankId;
 	
 	public Client(String name, Gender gender, float overdraft)
 	{
@@ -63,6 +64,18 @@ public class Client implements Report, Comparable<Client>, Serializable{
 		this.mailAddress=mailAddress;
 		this.phoneNumber=phoneNumber;
 		this.city=city;
+	}
+	
+	public Client(int id, String name, float initialOverdraft, String mailAddress, String phoneNumber, String city, Gender clientGender, int bankId)
+	{
+		this.id=id;
+		this.name=name;
+		this.initialOverdraft=initialOverdraft;
+		this.mailAddress=mailAddress;
+		this.phoneNumber=phoneNumber;
+		this.clientGender=clientGender;
+		this.city=city;
+		this.bankId=bankId;
 	}
 	
 	public Client(String name) {
@@ -253,6 +266,14 @@ public class Client implements Report, Comparable<Client>, Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(int bankId) {
+		this.bankId = bankId;
 	}
 }
 	

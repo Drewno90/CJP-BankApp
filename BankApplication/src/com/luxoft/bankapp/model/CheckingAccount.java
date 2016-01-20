@@ -50,6 +50,15 @@ public class CheckingAccount extends AbstractAccount {
 	}
 	
 	
+	public CheckingAccount(int id, String type, float balance, float overdraft, int clientId) {
+		super(balance);
+		this.id=id;
+		this.accountType=type;
+		this.overdraft=overdraft;
+		this.setClientId(clientId);
+	}
+
+
 	public void setOverdraft(float overdraft) throws IllegalArgumentException
 	{
 		if(overdraft<0)
@@ -126,9 +135,6 @@ public class CheckingAccount extends AbstractAccount {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
-
 
 	
 }

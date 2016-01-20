@@ -17,10 +17,18 @@ public class SavingAccount extends AbstractAccount {
 	
 	private String accountType="SavingAccount";
 	private int id;
+
 	public SavingAccount(float balance) {
 		super(balance);
 	}
 
+	public SavingAccount(int id, String type, float balance, int clientId) {
+		super(balance);
+		this.id=id;
+		this.accountType=type;
+		this.setClientId(clientId);
+	}
+	
 	public void setBalance(float balance) {
 		if(balance<=0)
 		{
@@ -55,7 +63,7 @@ public class SavingAccount extends AbstractAccount {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 }
 
 

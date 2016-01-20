@@ -9,7 +9,7 @@ import com.luxoft.bankapp.handling_exceptions.BankNotFoundException;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.model.Bank;
 
-class BankDAOImpl extends BaseDAOImpl {
+public class BankDAOImpl extends BaseDAOImpl implements BankDAO{
 
     Connection conn;
 
@@ -38,4 +38,51 @@ class BankDAOImpl extends BaseDAOImpl {
         }
         return bank;
     }
+
+
+	@Override
+	public void save(Bank bank) throws DAOException, SQLException {
+
+     String sql = "INSERT INTO BANK(name) " +
+             "VALUES(?)"; 
+  
+  PreparedStatement stmt;
+  try {
+      openConnection();
+      stmt = conn.prepareStatement(sql);
+      stmt.setString(1, bank.getBankName());
+
+      if (stmt.execute()) {
+          System.out.println("Client saved");
+      }
+  } catch (SQLException e) {
+      e.printStackTrace();
+      throw new DAOException();
+  } finally {
+      closeConnection();
+  }
+		
+	}
+
+	@Override
+	public void remove(Bank bank) throws DAOException, SQLException {
+	     
+		 String sql = ("DELETE FROM BANK WHERE id=?"); 
+
+		 PreparedStatement stmt;
+	        try {
+	            openConnection();
+	            stmt = conn.prepareStatement(sql);
+	            stmt.setInt(1, bank.getId());
+	            if (stmt.execute()) {
+	                System.out.println("Client removed");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            throw new DAOException();
+	        } finally {
+	            closeConnection();
+	        }
+		
+	}
 }
