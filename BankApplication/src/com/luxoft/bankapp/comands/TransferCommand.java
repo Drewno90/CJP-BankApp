@@ -1,10 +1,14 @@
 package com.luxoft.bankapp.comands;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.luxoft.bankapp.dao.ClientDAO;
+import com.luxoft.bankapp.dao.ClientDAOImpl;
+import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.model.Client;
 import com.luxoft.bankapp.service.BankService;
 import com.luxoft.bankapp.service.BankServiceImpl;
@@ -28,9 +32,21 @@ public class TransferCommand implements Command {
 		String transfer = scan.nextLine();
 		int ammount= new Integer(transfer);
 		
+		ClientDAO clientDAO = new ClientDAOImpl();
+		try {
+			bankService.transfer(BankCommander.currentClient, clientToWhomTransfer, ammount);
+			clientDAO.save(BankCommander.currentClient);
+			clientDAO.save(clientToWhomTransfer);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 		bankService.transfer(BankCommander.currentClient, clientToWhomTransfer, ammount);
 		LOG.debug("{} transfered from {} to {}", ammount, BankCommander.currentClient.getName(), clientToWhomTransfer.getName());
-		//scan.close();
+
 	}
 
 	@Override
@@ -40,4 +56,5 @@ public class TransferCommand implements Command {
 	}
 
 }
+
 

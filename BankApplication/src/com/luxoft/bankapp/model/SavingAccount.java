@@ -7,14 +7,28 @@ import org.slf4j.LoggerFactory;
 
 public class SavingAccount extends AbstractAccount {
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3918357958919593204L;
+
 	private final static Logger LOG = LoggerFactory.getLogger(SavingAccount.class);
 	
 	private String accountType="SavingAccount";
-	
+	private int id;
+
 	public SavingAccount(float balance) {
 		super(balance);
 	}
 
+	public SavingAccount(int id, String type, float balance, int clientId) {
+		super(balance);
+		this.id=id;
+		this.accountType=type;
+		this.setClientId(clientId);
+	}
+	
 	public void setBalance(float balance) {
 		if(balance<=0)
 		{
@@ -41,8 +55,17 @@ public class SavingAccount extends AbstractAccount {
 	public String getAccountType() {
 		return accountType;
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 }
+
 
 
 

@@ -10,11 +10,17 @@ import com.luxoft.bankapp.handling_exceptions.OverDraftLimitExceededException;
 
 public class CheckingAccount extends AbstractAccount {
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2534569569012788542L;
+
 	private final static Logger LOG = LoggerFactory.getLogger(CheckingAccount.class);
 
 	private float overdraft;
 	private String accountType="CheckingAccount";
-
+	private int id;
 
 	public CheckingAccount(float balance) {
 		super(balance);
@@ -44,6 +50,15 @@ public class CheckingAccount extends AbstractAccount {
 	}
 	
 	
+	public CheckingAccount(int id, String type, float balance, float overdraft, int clientId) {
+		super(balance);
+		this.id=id;
+		this.accountType=type;
+		this.overdraft=overdraft;
+		this.setClientId(clientId);
+	}
+
+
 	public void setOverdraft(float overdraft) throws IllegalArgumentException
 	{
 		if(overdraft<0)
@@ -112,10 +127,18 @@ public class CheckingAccount extends AbstractAccount {
 	}
 
 
+	public int getId() {
+		return id;
+	}
 
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	
 }
+
 
 
 

@@ -7,7 +7,6 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.luxoft.bankapp.bank_application.BankApplication;
 import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.model.Account;
 import com.luxoft.bankapp.model.Bank;
@@ -31,7 +30,10 @@ private final static Logger LOG = LoggerFactory.getLogger(BankCommander.class);
     	commands.put("4", new WithdrawCommand());
     	commands.put("5", new TransferCommand());
     	commands.put("6", new AddClientCommand());
-    	commands.put("7", new Command() { // 7 - Exit Command
+    	commands.put("7", new DBSelectBankCommander());
+    	commands.put("8", new DBRemoveClientCommander());
+    	commands.put("9", new DBSelectClientCommander());
+    	commands.put("0", new Command() { // 7 - Exit Command
             public void execute() {
         		LOG.info("System Stopped");
                 System.exit(0);
@@ -57,13 +59,13 @@ private final static Logger LOG = LoggerFactory.getLogger(BankCommander.class);
     	BankService bankService=new BankServiceImpl();
 		LOG.info("System started");
 		try {
-			Client client1 = new Client("Benjamin",1700,Gender.MALE, "Krakow");
+			Client client1 = new Client("Ben",1700,Gender.MALE, "Krakow");
 			Account checkingAccount1 = new CheckingAccount(300, client1);
 			bankService.addAccount(client1,checkingAccount1);
 			bankService.setActiveAccount(client1,checkingAccount1);
 			bankService.addClient(currentBank, client1);
 			} catch (ClientExistsException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
     	initializeCommands();
@@ -75,10 +77,11 @@ private final static Logger LOG = LoggerFactory.getLogger(BankCommander.class);
            }
            String commandName = scan.nextLine();
            commands.get(commandName).execute();
-//           scan.close();
+
 
         }
         
 }
 }
+
 

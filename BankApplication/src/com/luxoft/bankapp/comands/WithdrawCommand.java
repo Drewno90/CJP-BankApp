@@ -1,10 +1,15 @@
 package com.luxoft.bankapp.comands;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.luxoft.bankapp.dao.ClientDAO;
+import com.luxoft.bankapp.dao.ClientDAOImpl;
+import com.luxoft.bankapp.handling_exceptions.DAOException;
+import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 import com.luxoft.bankapp.service.BankService;
 import com.luxoft.bankapp.service.BankServiceImpl;
 
@@ -17,13 +22,23 @@ public class WithdrawCommand implements Command {
 		Scanner scan=new Scanner(System.in);
 		System.out.println("How much you want to withdraw?");
 		String withdraw = scan.nextLine();
-		int ammount= new Integer(withdraw);
+		float ammount= new Float(withdraw);
 		BankService bankService= new BankServiceImpl();
+		ClientDAO clientDAO = new ClientDAOImpl();
+		try {
+			bankService.findClientByHisName(BankCommander.currentBank, BankCommander.currentClient.getName()).getActiveAccount().withdraw(ammount);
+			clientDAO.save(BankCommander.currentClient);
+		} catch (NotEnoughFundsException e) {
+			e.printStackTrace();
+		} catch (DAOException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		bankService.withdraw(BankCommander.currentClient, ammount);
+		
 		LOG.debug("{} withdrawed from {} account", ammount, BankCommander.currentClient.getName());
 		
-		//scan.close();
 	}
 
 	@Override
@@ -33,4 +48,5 @@ public class WithdrawCommand implements Command {
 	}
 
 }
+
 

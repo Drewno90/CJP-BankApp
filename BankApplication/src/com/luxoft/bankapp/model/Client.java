@@ -14,6 +14,12 @@ import com.luxoft.bankapp.handling_exceptions.FeedException;
 
 public class Client implements Report, Comparable<Client>, Serializable{
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4492568206812651133L;
+
 	private final static Logger LOG = LoggerFactory.getLogger(Client.class);
 
 	private String name;
@@ -23,8 +29,9 @@ public class Client implements Report, Comparable<Client>, Serializable{
 	private String mailAddress;
 	private String phoneNumber;
 	private String city;
-	
+	private int id;
 	private Gender clientGender;
+	private int bankId;
 	
 	public Client(String name, Gender gender, float overdraft)
 	{
@@ -59,8 +66,31 @@ public class Client implements Report, Comparable<Client>, Serializable{
 		this.city=city;
 	}
 	
+	public Client(int id, String name, float initialOverdraft, String mailAddress, String phoneNumber, String city, Gender clientGender, int bankId)
+	{
+		this.id=id;
+		this.name=name;
+		this.initialOverdraft=initialOverdraft;
+		this.mailAddress=mailAddress;
+		this.phoneNumber=phoneNumber;
+		this.clientGender=clientGender;
+		this.city=city;
+		this.bankId=bankId;
+	}
+	
 	public Client(String name) {
 		this.name=name;
+	}
+
+	public Client(String name, int overdraft, String mailAddress, String phoneNumber, String city, Gender gender,
+			int bankId) {
+		this.name=name;
+		this.initialOverdraft=overdraft;
+		this.mailAddress=mailAddress;
+		this.phoneNumber=phoneNumber;
+		this.clientGender=gender;
+		this.city=city;
+		this.bankId=bankId;
 	}
 
 	public void setActiveAccount(Account account){
@@ -240,8 +270,25 @@ public class Client implements Report, Comparable<Client>, Serializable{
         
          acc.parseFeed(feed);
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(int bankId) {
+		this.bankId = bankId;
+	}
 }
 	
+
 
 
 

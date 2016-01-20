@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,12 @@ import com.luxoft.bankapp.model.Bank;
 import com.luxoft.bankapp.model.Client;
 
 
-public class BankServiceImpl implements BankService{
+public class BankServiceImpl implements BankService, Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3663663341530119590L;
 
 	public final static Logger LOG = LoggerFactory.getLogger(BankServiceImpl.class);
 	
@@ -152,6 +158,7 @@ public class BankServiceImpl implements BankService{
 	}
 
 }
+
 
 
 
