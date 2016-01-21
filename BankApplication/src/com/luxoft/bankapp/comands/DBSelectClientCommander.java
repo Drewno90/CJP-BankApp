@@ -16,6 +16,11 @@ public class DBSelectClientCommander implements Command {
         ClientDAO clientDAO = new ClientDAOImpl();
         
         try {	
+        	while(clientDAO.findClientByName(BankCommander.currentBank, selectedClientName)==null)
+        	{
+        		System.out.println("No such client. Pass another name");
+        		selectedClientName = scan.nextLine();
+        	}
         BankCommander.currentClient = clientDAO.findClientByName(BankCommander.currentBank, selectedClientName);
         
     } catch (DAOException e) {

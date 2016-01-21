@@ -10,6 +10,8 @@ import com.luxoft.bankapp.dao.ClientDAO;
 import com.luxoft.bankapp.dao.ClientDAOImpl;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
+import com.luxoft.bankapp.model.CheckingAccount;
+import com.luxoft.bankapp.model.SavingAccount;
 
 
 public class WithdrawCommand implements Command {
@@ -20,11 +22,33 @@ public class WithdrawCommand implements Command {
 	public void execute() {
 		Scanner scan=new Scanner(System.in);
 		System.out.println("How much you want to withdraw?");
-		String withdraw = scan.nextLine();
-		float ammount= new Float(withdraw);
+		float withdraw = scan.nextFloat();
+
 		ClientDAO clientDAO = new ClientDAOImpl();
 		try {
-			BankCommander.currentClient.getActiveAccount().withdraw(ammount);
+
+			
+			if(BankCommander.currentClient.getActiveAccount() instanceof CheckingAccount){
+				while(BankCommander.currentClient.getActiveAccount().getBalance()+BankCommander.currentClient.getInitialOverdraft()<withdraw)
+				{
+					System.out.println("Not enough ammount on account. Pass another ammount");
+					withdraw = scan.nextFloat();
+				}
+				if(BankCommander.currentClient.getActiveAccount().getBalance()+BankCommander.currentClient.getInitialOverdraft()>withdraw)
+					BankCommander.currentClient.getActiveAccount().withdraw(withdraw);
+
+			}
+			else if(BankCommander.currentClient.getActiveAccount() instanceof SavingAccount)
+			{
+				while(BankCommander.currentClient.getActiveAccount().getBalance()<withdraw)
+				{
+					System.out.println("Not enough ammount on account. Pass another ammount");
+					withdraw = scan.nextFloat();
+				}
+				
+				if(BankCommander.currentClient.getActiveAccount().getBalance()>withdraw)
+					BankCommander.currentClient.getActiveAccount().withdraw(withdraw);
+			}
 			clientDAO.save(BankCommander.currentClient);
 		} catch (NotEnoughFundsException e) {
 			e.printStackTrace();
@@ -35,7 +59,7 @@ public class WithdrawCommand implements Command {
 		}
 		
 		
-		LOG.debug("{} withdrawed from {} account", ammount, BankCommander.currentClient.getName());
+		LOG.debug("{} withdrawed from {} account", withdraw, BankCommander.currentClient.getName());
 		
 	}
 

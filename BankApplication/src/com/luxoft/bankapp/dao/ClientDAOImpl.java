@@ -112,7 +112,6 @@ public class ClientDAOImpl extends BaseDAOImpl implements ClientDAO{
 	         stmt.setString(3, client.getMailAddress());
 	         stmt.setString(4, client.getPhoneNumber());
 	         stmt.setString(5, client.getCity());
-	         System.out.println(client.getClientGender());
 	         if (client.getClientGender().equals(Gender.MALE)) {
 	             stmt.setString(6, "Male");
 	         } else if (client.getClientGender().equals(Gender.FEMALE)) {

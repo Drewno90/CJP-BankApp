@@ -23,6 +23,11 @@ public class DBSelectBankCommander implements Command{
         ClientDAO clientDAO = new ClientDAOImpl();
         Set<Client> bankClientsList;
         try {	
+        	while(bankDAO.getBankByName(selectedBankName)==null)
+        	{
+        		System.out.println("No such Bank. Pass another name");
+        		selectedBankName = scan.nextLine();
+        	}
         Bank bank = bankDAO.getBankByName(selectedBankName);
         bankClientsList = clientDAO.getAllClients(bank);
         BankCommander.currentBank=bank;
