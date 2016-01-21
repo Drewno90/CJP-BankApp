@@ -56,9 +56,9 @@ public class AddClientCommand implements Command {
 		if(!genderS.matches("^[A-Z]{1}[a-z]{2,}$"))
 			LOG.warn("Incorrect gender");
 		Gender gender;
-		if(genderS.equals("male"))
+		if(genderS.equals("Male"))
 			gender = Gender.MALE;
-		else if(genderS.equals("male"))
+		else if(genderS.equals("Female"))
 			gender = Gender.FEMALE;
 		else
 		{

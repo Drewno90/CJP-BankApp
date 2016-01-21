@@ -18,7 +18,7 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO{
 	public void save(Account account) throws DAOException {
 		
 		
-	    String sql = "UPDATE ACCOUNTS SET (type=?,balance=?,overdraft=?,client_id=?) ";
+	    String sql = "UPDATE ACCOUNTS SET type=?,balance=?,overdraft=?,client_id=? WHERE client_id="+account.getClientId()+";";
 		PreparedStatement stmt;
 	     try {
 	         openConnection();
@@ -74,7 +74,7 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO{
 	@Override
 	public void removeByClientId(int idClient) throws DAOException, SQLException {
 	     
-		 String sql = ("DELETE FROM ACCOUNTS WHERE id=?"); 
+		 String sql = ("DELETE FROM ACCOUNTS WHERE client_id=?"); 
 
 		 PreparedStatement stmt;
 	        try {
@@ -104,6 +104,7 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO{
 		List<Account> accountList = new ArrayList<Account>();
 
 		 try {
+			 	openConnection();
 	            Statement stmt = conn.createStatement();
 	            String sql = "SELECT * FROM ACCOUNTS ";
 	            ResultSet rs = stmt.executeQuery(sql);
@@ -122,7 +123,10 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO{
 	            }
 	        } catch(SQLException e) {
 	            e.printStackTrace();
+	        } finally {
+	            closeConnection();
 	        }
+		 
 		return accountList;
 	}
 

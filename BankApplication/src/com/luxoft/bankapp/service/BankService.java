@@ -15,12 +15,12 @@ public interface BankService extends Serializable{
     public void setActiveAccount(Client client, Account account);
 	public Client findClientByHisName(Bank bank, String name);
 	public void getAccounts(Client client);
-	public void transfer(Client clientFromWhomTransfer, Client clientToWhomTransfer, float ammount);
 	public void deposit(Client client, float ammount);
 	public void withdraw(Client client, float ammount);
 	public Client getClient(Bank bank, String clientName);
 	public void saveClient(Client client);
 	public Client loadClient();
+	public void transfer(Client clientToWhomTransfer, float ammount);
 
 }
 

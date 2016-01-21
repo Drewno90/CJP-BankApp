@@ -33,6 +33,7 @@ private final static Logger LOG = LoggerFactory.getLogger(BankCommander.class);
     	commands.put("7", new DBSelectBankCommander());
     	commands.put("8", new DBRemoveClientCommander());
     	commands.put("9", new DBSelectClientCommander());
+    	commands.put("10", new SelectActiveAccount());
     	commands.put("0", new Command() { // 7 - Exit Command
             public void execute() {
         		LOG.info("System Stopped");

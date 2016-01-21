@@ -9,8 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.luxoft.bankapp.dao.ClientDAO;
 import com.luxoft.bankapp.dao.ClientDAOImpl;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
-import com.luxoft.bankapp.service.BankService;
-import com.luxoft.bankapp.service.BankServiceImpl;
+
 
 public class DepositCommand implements Command {
 
@@ -20,12 +19,13 @@ public class DepositCommand implements Command {
 	public void execute() {
 		Scanner scan=new Scanner(System.in);
 		System.out.println("How much you want to deposit?");
-		String deposit = scan.nextLine();
-		int ammount= new Integer(deposit);
-		BankService bankService= new BankServiceImpl();
+		int ammount = scan.nextInt();
 		ClientDAO clientDAO = new ClientDAOImpl();
+
 		try {
-			bankService.findClientByHisName(BankCommander.currentBank, BankCommander.currentClient.getName()).getActiveAccount().deposit(ammount);
+
+			BankCommander.currentClient.getActiveAccount().deposit(ammount);
+		
 			clientDAO.save(BankCommander.currentClient);
 		} catch (DAOException e) {
 			e.printStackTrace();

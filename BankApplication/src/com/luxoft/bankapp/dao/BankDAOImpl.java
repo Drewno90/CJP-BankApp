@@ -1,6 +1,5 @@
 package com.luxoft.bankapp.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +9,6 @@ import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.model.Bank;
 
 public class BankDAOImpl extends BaseDAOImpl implements BankDAO{
-
-    Connection conn;
 
     public Bank getBankByName(String name) throws DAOException, BankNotFoundException {
 

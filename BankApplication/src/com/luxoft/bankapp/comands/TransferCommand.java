@@ -25,6 +25,8 @@ public class TransferCommand implements Command {
 		System.out.println("To whom you want to send?");
 		String clientName = scan.nextLine();
 		BankService bankService= new BankServiceImpl();
+		SelectActiveAccount selectActiveAccount = new SelectActiveAccount();
+		
 		
 		Client clientToWhomTransfer = bankService.findClientByHisName(BankCommander.currentBank, clientName);
 
@@ -34,7 +36,13 @@ public class TransferCommand implements Command {
 		
 		ClientDAO clientDAO = new ClientDAOImpl();
 		try {
-			bankService.transfer(BankCommander.currentClient, clientToWhomTransfer, ammount);
+			Client tempClient = BankCommander.currentClient;
+			BankCommander.currentClient = clientToWhomTransfer;
+			System.out.println("Choose account (id)");
+			selectActiveAccount.execute();
+			BankCommander.currentClient = tempClient;
+			bankService.transfer(clientToWhomTransfer, ammount);
+			
 			clientDAO.save(BankCommander.currentClient);
 			clientDAO.save(clientToWhomTransfer);
 		} catch (DAOException e) {
@@ -43,8 +51,8 @@ public class TransferCommand implements Command {
 			e.printStackTrace();
 		}
 		
+
 		
-		bankService.transfer(BankCommander.currentClient, clientToWhomTransfer, ammount);
 		LOG.debug("{} transfered from {} to {}", ammount, BankCommander.currentClient.getName(), clientToWhomTransfer.getName());
 
 	}

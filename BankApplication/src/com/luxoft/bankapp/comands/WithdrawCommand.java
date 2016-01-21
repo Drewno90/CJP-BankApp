@@ -10,8 +10,7 @@ import com.luxoft.bankapp.dao.ClientDAO;
 import com.luxoft.bankapp.dao.ClientDAOImpl;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
-import com.luxoft.bankapp.service.BankService;
-import com.luxoft.bankapp.service.BankServiceImpl;
+
 
 public class WithdrawCommand implements Command {
 
@@ -23,10 +22,9 @@ public class WithdrawCommand implements Command {
 		System.out.println("How much you want to withdraw?");
 		String withdraw = scan.nextLine();
 		float ammount= new Float(withdraw);
-		BankService bankService= new BankServiceImpl();
 		ClientDAO clientDAO = new ClientDAOImpl();
 		try {
-			bankService.findClientByHisName(BankCommander.currentBank, BankCommander.currentClient.getName()).getActiveAccount().withdraw(ammount);
+			BankCommander.currentClient.getActiveAccount().withdraw(ammount);
 			clientDAO.save(BankCommander.currentClient);
 		} catch (NotEnoughFundsException e) {
 			e.printStackTrace();

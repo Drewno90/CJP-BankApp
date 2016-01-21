@@ -8,7 +8,7 @@ import java.util.Set;
 import org.junit.Ignore;
 import org.junit.Test;
 
-
+import com.luxoft.bankapp.comands.BankCommander;
 import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 import com.luxoft.bankapp.handling_exceptions.OverDraftLimitExceededException;
@@ -121,8 +121,8 @@ public class TestBankService {
 		} catch (ClientExistsException e) {
 			e.printStackTrace();
 		}
-	
-		bankService.transfer(client1, client2, 11300);
+		BankCommander.currentClient=client1;
+		bankService.transfer(client2, 11300);
 
 
 	}
@@ -153,8 +153,8 @@ public class TestBankService {
 		} catch (ClientExistsException e) {
 			e.printStackTrace();
 		}
-		
-		bankService.transfer(client1, client2, 3000);
+		BankCommander.currentClient=client1;
+		bankService.transfer(client2, 3000);
 	}
 	
 	@Ignore ("Not working")

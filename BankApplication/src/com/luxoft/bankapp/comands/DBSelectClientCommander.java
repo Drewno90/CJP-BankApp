@@ -17,7 +17,7 @@ public class DBSelectClientCommander implements Command {
         
         try {	
         BankCommander.currentClient = clientDAO.findClientByName(BankCommander.currentBank, selectedClientName);
-
+        
     } catch (DAOException e) {
         e.printStackTrace();
     }

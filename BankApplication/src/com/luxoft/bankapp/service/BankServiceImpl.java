@@ -12,6 +12,7 @@ import java.io.Serializable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.luxoft.bankapp.comands.BankCommander;
 import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 import com.luxoft.bankapp.model.Account;
@@ -58,6 +59,7 @@ public class BankServiceImpl implements BankService, Serializable{
 	@Override
 	public Client findClientByHisName(Bank bank, String name) {
 		boolean flag=false;
+		if(!bank.getClients().isEmpty())
 		for(Client client: bank.getClients())
 			if(name.equals(client.getName()))
 			{
@@ -79,15 +81,14 @@ public class BankServiceImpl implements BankService, Serializable{
 	}
 
 	@Override
-	public void transfer(Client clientFromWhomTransfer,	Client clientToWhomTransfer, float ammount) {
+	public void transfer(Client clientToWhomTransfer, float ammount) {
 
 		try {
-			clientFromWhomTransfer.getActiveAccount().withdraw(ammount);
+			BankCommander.currentClient.getActiveAccount().withdraw(ammount);
 		} catch (NotEnoughFundsException e) {
 			LOG.warn("Not Enough Funds. Maximum of what you can transfer is {}", e.getAmount());
 			e.printStackTrace();
 		}
-		
 		clientToWhomTransfer.getActiveAccount().deposit(ammount);
 	}
 

@@ -65,6 +65,12 @@ public class Bank implements Report,Serializable{
 		}	
 	}
 	
+	@Override
+	public String toString() {
+		return new StringBuffer().append("Bank name=").append(bankName).toString();
+	
+	}
+	
 	public class PrintClientListener implements ClientRegistrationListener{
 
 		/**
