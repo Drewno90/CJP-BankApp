@@ -3,7 +3,7 @@ package com.luxoft.bankapp.tests;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class TestBankService {
 		bankService.addAccount(client1,savingAccount);
 		bankService.addAccount(client1,checkingAccount);
 
-		Set<Account> list = client1.getAccounts();
+		List<Account> list = client1.getAccounts();
 		assertTrue(list.containsAll(Arrays.asList(accounts)));
 	}
 	

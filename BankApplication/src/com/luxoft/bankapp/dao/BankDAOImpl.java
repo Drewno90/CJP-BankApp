@@ -28,6 +28,7 @@ public class BankDAOImpl extends BaseDAOImpl implements BankDAO{
              throw new BankNotFoundException(name);
            }
         } catch (SQLException e) {
+        	 exceptionsLog.severe("SqlException while getting bank by name ");
              e.printStackTrace();
              throw new DAOException();
         } finally {
@@ -50,9 +51,12 @@ public class BankDAOImpl extends BaseDAOImpl implements BankDAO{
       stmt.setString(1, bank.getBankName());
 
       if (stmt.execute()) {
+    	  dbLog.info("Client saved in bank");
+    	  clientsLog.info("Client saved in bank");
           System.out.println("Client saved");
       }
   } catch (SQLException e) {
+	  exceptionsLog.severe("SQLException while saving bank");
       e.printStackTrace();
       throw new DAOException();
   } finally {
@@ -72,9 +76,11 @@ public class BankDAOImpl extends BaseDAOImpl implements BankDAO{
 	            stmt = conn.prepareStatement(sql);
 	            stmt.setInt(1, bank.getId());
 	            if (stmt.execute()) {
+	            	clientsLog.info("Client removed from bank");
 	                System.out.println("Client removed");
 	            }
 	        } catch (SQLException e) {
+	      	  exceptionsLog.severe("SQLException while removing bank");
 	            e.printStackTrace();
 	            throw new DAOException();
 	        } finally {

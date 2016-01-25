@@ -8,15 +8,9 @@ import com.luxoft.bankapp.model.Bank;
 
 public interface BankDAO {
 
-   
-
-    Bank getBankByName (String name) throws DAOException, BankNotFoundException;
-
-
+Bank getBankByName (String name) throws DAOException, BankNotFoundException;
 
 void save(Bank bank) throws DAOException, SQLException;
-
-
 
 void remove(Bank bank) throws DAOException, SQLException;
 

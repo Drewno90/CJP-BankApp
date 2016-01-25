@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.luxoft.bankapp.model.Bank;
 import com.luxoft.bankapp.requests.LogOutRequest;
@@ -12,6 +16,8 @@ import com.luxoft.bankapp.service.BankServiceImpl;
 
 public class ServerThread implements Runnable {
 
+	static Logger logger = Logger.getLogger(ServerThread.class.getName());
+	
     private Socket connection = null;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -26,7 +32,11 @@ public class ServerThread implements Runnable {
     
     public void run() {
           try {
-
+        	  
+      		logger.setLevel(Level.ALL);
+    		Handler handler = new ConsoleHandler();
+    		logger.addHandler(handler);
+    		
                 // 1. creating a server socket
                 // 2. Wait for connection
 
@@ -51,10 +61,12 @@ public class ServerThread implements Runnable {
       						request.printInfo();
       						sendMessage(request.execute());
                       } catch (ClassNotFoundException classnot) {
+                    	  logger.severe("Data received in unknown format");
                             System.err.println("Data received in unknown format");
                       }
                 } while (!(request instanceof LogOutRequest));
           } catch (IOException ioException) {
+        	    logger.log(Level.SEVERE, ioException.getMessage(), ioException);
                 ioException.printStackTrace();
           } finally {
 
@@ -65,6 +77,8 @@ public class ServerThread implements Runnable {
                      connection.close();
                       
                 } catch (IOException ioException) {
+                	logger.log(Level.SEVERE, ioException.getMessage(), ioException);
+                	logger.severe("IOException during closing connection");
                       ioException.printStackTrace();
                 }
                 BankServerThreaded.decrementCount();
@@ -79,6 +93,8 @@ public class ServerThread implements Runnable {
                 out.flush();
                 System.out.println("ser>" + " " + msg);
           } catch (IOException ioException) {
+        	  logger.log(Level.SEVERE, ioException.getMessage(), ioException);
+        	  logger.severe("IOException during sending message");
                 ioException.printStackTrace();
           }
     }

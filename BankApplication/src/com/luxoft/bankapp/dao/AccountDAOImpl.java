@@ -35,6 +35,7 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO{
 	             System.out.println("Account saved");
 	         }
 	     } catch (SQLException e) {
+	   	  exceptionsLog.severe("SQLException while saving account");
 	         e.printStackTrace();
 	         throw new DAOException();
 	     } finally {
@@ -63,6 +64,7 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO{
 	             System.out.println("Account added");
 	         }
 	     } catch (SQLException e) {
+	   	  exceptionsLog.severe("SQLException while adding new account");
 	         e.printStackTrace();
 	         throw new DAOException();
 	     } finally {
@@ -85,6 +87,7 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO{
 	                System.out.println("Account removed");
 	            }
 	        } catch (SQLException e) {
+	      	  exceptionsLog.severe("SQLException while removing by client id");
 	            e.printStackTrace();
 	            throw new DAOException();
 	        } finally {
@@ -116,12 +119,15 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO{
 	                balance = rs.getFloat("balance");
 	                overdraft = rs.getFloat("overdraft");
 	                clientId  = rs.getInt("client_id");
-	                if(type.equals("Checking Account"))
-	        		accountList.add(new CheckingAccount(id, type, balance, overdraft, clientId));
+	                if(type.equals("CheckingAccount"))
+	                	accountList.add(new CheckingAccount(id, type, balance, overdraft, clientId));
+	                else if(type.equals("SavingAccount"))
+	                	accountList.add(new SavingAccount(id, type, balance, clientId));
 	                else
-	                accountList.add(new SavingAccount(id, type, balance, clientId));
+	                	System.out.println("Incorrect type of Account in id=" + id);
 	            }
 	        } catch(SQLException e) {
+	      	  exceptionsLog.severe("SQLException while getting client accounts");
 	            e.printStackTrace();
 	        } finally {
 	            closeConnection();

@@ -34,8 +34,7 @@ public class WithdrawCommand implements Command {
 					System.out.println("Not enough ammount on account. Pass another ammount");
 					withdraw = scan.nextFloat();
 				}
-				if(BankCommander.currentClient.getActiveAccount().getBalance()+BankCommander.currentClient.getInitialOverdraft()>withdraw)
-					BankCommander.currentClient.getActiveAccount().withdraw(withdraw);
+				BankCommander.currentClient.getActiveAccount().withdraw(withdraw);
 
 			}
 			else if(BankCommander.currentClient.getActiveAccount() instanceof SavingAccount)
@@ -45,9 +44,7 @@ public class WithdrawCommand implements Command {
 					System.out.println("Not enough ammount on account. Pass another ammount");
 					withdraw = scan.nextFloat();
 				}
-				
-				if(BankCommander.currentClient.getActiveAccount().getBalance()>withdraw)
-					BankCommander.currentClient.getActiveAccount().withdraw(withdraw);
+				BankCommander.currentClient.getActiveAccount().withdraw(withdraw);
 			}
 			clientDAO.save(BankCommander.currentClient);
 		} catch (NotEnoughFundsException e) {

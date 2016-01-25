@@ -1,11 +1,14 @@
 package com.luxoft.bankapp.comands;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.model.Account;
@@ -21,8 +24,11 @@ public static Bank currentBank = new Bank("MyBank");
 public static Client currentClient;
 public static Map<String, Command> commands= new TreeMap<String, Command>();
 
-private final static Logger LOG = LoggerFactory.getLogger(BankCommander.class);
-
+	static Logger logger = Logger.getLogger(BankCommander.class.getName());
+	static {
+		logger.setLevel(Level.SEVERE);
+	}
+	
     public static void initializeCommands(){
     	commands.put("1", new FindClientCommand());
     	commands.put("2", new GetAccountCommand());
@@ -34,9 +40,10 @@ private final static Logger LOG = LoggerFactory.getLogger(BankCommander.class);
     	commands.put("8", new DBRemoveClientCommander());
     	commands.put("9", new DBSelectClientCommander());
     	commands.put("10", new SelectActiveAccount());
+    	commands.put("11", new DBReportCommander());
     	commands.put("0", new Command() { // 7 - Exit Command
             public void execute() {
-        		LOG.info("System Stopped");
+        		logger.info("System Stopped");
                 System.exit(0);
             }
             public void printCommandInfo() {
@@ -44,7 +51,7 @@ private final static Logger LOG = LoggerFactory.getLogger(BankCommander.class);
             }
         });
     }
-    
+  
     public static void registerCommand(String name, Command command)
     {
     	commands.put(name, command);
@@ -58,7 +65,19 @@ private final static Logger LOG = LoggerFactory.getLogger(BankCommander.class);
     
     public static void main(String args[]) {
     	BankService bankService=new BankServiceImpl();
-		LOG.info("System started");
+    	
+    	try {
+			LogManager.getLogManager().readConfiguration(
+					new FileInputStream("logger_all.properties"));
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+		logger.info("System started");
 		try {
 			Client client1 = new Client("Ben",1700,Gender.MALE, "Krakow");
 			Account checkingAccount1 = new CheckingAccount(300, client1);

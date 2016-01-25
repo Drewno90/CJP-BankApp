@@ -17,6 +17,7 @@ public class DBRemoveClientCommander implements Command{
         AccountDAO accountDAO = new AccountDAOImpl();
         ClientDAO clientDAO = new ClientDAOImpl();
         try {	
+        	
         accountDAO.removeByClientId(BankCommander.currentClient.getId());
         clientDAO.remove(BankCommander.currentClient);
 

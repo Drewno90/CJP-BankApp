@@ -7,9 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Calendar;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.luxoft.bankapp.comands.BankCommander;
 import com.luxoft.bankapp.model.Client;
@@ -27,7 +30,7 @@ import com.luxoft.bankapp.service.BankServiceImpl;
 
 public class BankClient {
 	
-	private final static Logger LOG = LoggerFactory.getLogger(BankClient.class);
+	static Logger logger = Logger.getLogger(BankClient.class.getName());
 	
     Socket requestSocket;
     ObjectOutputStream out;
@@ -40,11 +43,16 @@ public class BankClient {
     
     
     public void run() {
+        Calendar timer = Calendar.getInstance(); 
           try {
+        		logger.setLevel(Level.ALL);
+        		Handler handler = new ConsoleHandler();
+        		logger.addHandler(handler);
                 // 1. creating a socket to connect to the server
                 requestSocket = new Socket(SERVER, 9090);
                 System.out.println("Connected to localhost in port 8080");
 
+                logger.info("Client logged at "+ timer.getTime());
                 // 2. get Input and Output streams
                 out = new ObjectOutputStream(requestSocket.getOutputStream());
                 out.flush();
@@ -61,11 +69,12 @@ public class BankClient {
 					}
                 	catch (ClassNotFoundException e) 
                 	{
+                		logger.severe("Class not found exception during receving/sending message");
 						e.printStackTrace();
 					}
                 } while (!message.equals("Logged out"));
           } catch (UnknownHostException unknownHost) {
-        	  
+        	    logger.severe("You are trying to connect to an unknown host!");
                 System.err.println("You are trying to connect to an unknown host!");
                 
           } catch (IOException ioException) {
@@ -78,6 +87,10 @@ public class BankClient {
                       in.close();
                       out.close();
                       requestSocket.close();
+                      long timeOfClientConnection = timer.getTimeInMillis();
+              			timer = Calendar.getInstance();
+              			timeOfClientConnection = timer.getTimeInMillis() - timeOfClientConnection;
+                      logger.info("Client disconnected. Time spent at work= "+ timeOfClientConnection);
                 } catch (IOException ioException) {
                       ioException.printStackTrace();
                 }
@@ -90,6 +103,7 @@ public class BankClient {
                 out.flush();
                 System.out.println("client>" + msg);
           } catch (IOException ioException) {
+        	    logger.severe("IOException during sending message");
                 ioException.printStackTrace();
           }
     }
@@ -101,6 +115,7 @@ public class BankClient {
               out.flush();
               request.printInfo();
         } catch (IOException ioException) {
+        	 logger.severe("IOException during sending request");
               ioException.printStackTrace();
         }
   }
@@ -131,7 +146,7 @@ public class BankClient {
 			System.out.println("Pass client city");
 			city = bufferedReader.readLine();
 		} catch (IOException e) {
-			LOG.warn("IO exception in function addNewClient");
+			logger.severe("IO exception in function addNewClient");
 			e.printStackTrace();
 		}
 		if(gender.equals("MALE"))
@@ -140,6 +155,7 @@ public class BankClient {
 			return new Client(clientName, initialOverdraft, Gender.MALE, city);
 		else
 		{
+			logger.warning("No such gender type");
 			System.out.println("No such gender type.");
 			addNewClient();
 		}
@@ -160,7 +176,7 @@ public class BankClient {
 				try {
 					clientName = bufferedReader.readLine();
 				} catch (IOException e) {
-					LOG.warn("IO exception in function selectRequest");
+					logger.severe("IO exception in function selectRequest");
 				}
     			return new ClientInfoRequest(clientName, bankService);
     		}
@@ -176,7 +192,7 @@ public class BankClient {
 				try {
 					clientName = bufferedReader.readLine();
 				} catch (IOException e) {
-					LOG.warn("IO exception in function selectRequest");
+					logger.severe("IO exception in function selectRequest");
 				}
     			return new ClientRemoveRequest(clientName,  bankService);
     		}
@@ -186,6 +202,7 @@ public class BankClient {
     		}
     		else
     		{
+    			logger.warning("There is no operation with such number!");
     			System.out.println("There is no operation with such number!");
     			return null;
     		}
@@ -202,10 +219,10 @@ public class BankClient {
 					String cash = bufferedReader.readLine();
 					ammount = Float.parseFloat(cash);
 				} catch (NumberFormatException e) {
-					LOG.warn("Bad number format in function selectRequest");
+					logger.severe("Bad number format in function selectRequest");
 					e.printStackTrace();
 				} catch (IOException e) {
-					LOG.warn("IO exception in function selectRequest");
+					logger.severe("IO exception in function selectRequest");
 		
 				}
     			return new WithdrawRequest(ammount, bankService, clientName);
@@ -245,9 +262,9 @@ public class BankClient {
 				clientName = verifyClient(clientName);
 				return new LogInRequest(clientName);
 			} catch (IOException e) {
-				LOG.warn("IO exception in function make Request");
+				logger.severe("IO exception in function make Request");
 			} 		catch (ClassNotFoundException e) {
-				LOG.warn("Class not found exception in function make Request");
+				logger.severe("Class not found exception in function make Request");
 
 			}
 		}

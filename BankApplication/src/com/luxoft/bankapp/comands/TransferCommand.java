@@ -9,7 +9,10 @@ import org.slf4j.LoggerFactory;
 import com.luxoft.bankapp.dao.ClientDAO;
 import com.luxoft.bankapp.dao.ClientDAOImpl;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
+import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
+import com.luxoft.bankapp.model.CheckingAccount;
 import com.luxoft.bankapp.model.Client;
+import com.luxoft.bankapp.model.SavingAccount;
 import com.luxoft.bankapp.service.BankService;
 import com.luxoft.bankapp.service.BankServiceImpl;
 
@@ -26,13 +29,9 @@ public class TransferCommand implements Command {
 		String clientName = scan.nextLine();
 		BankService bankService= new BankServiceImpl();
 		SelectActiveAccount selectActiveAccount = new SelectActiveAccount();
-		
+		float ammount=0;
 		
 		Client clientToWhomTransfer = bankService.findClientByHisName(BankCommander.currentBank, clientName);
-
-		System.out.println("How much you want to transfer?");
-		String transfer = scan.nextLine();
-		int ammount= new Integer(transfer);
 		
 		ClientDAO clientDAO = new ClientDAOImpl();
 		try {
@@ -41,6 +40,38 @@ public class TransferCommand implements Command {
 			System.out.println("Choose account (id)");
 			selectActiveAccount.execute();
 			BankCommander.currentClient = tempClient;
+			
+			System.out.println("How much you want to transfer?");
+			ammount = scan.nextFloat();
+
+			
+			if(BankCommander.currentClient.getActiveAccount() instanceof CheckingAccount){
+				while(BankCommander.currentClient.getActiveAccount().getBalance()+BankCommander.currentClient.getInitialOverdraft()<ammount)
+				{
+					System.out.println("Not enough ammount on account. Pass another ammount");
+					ammount = scan.nextFloat();
+				}
+				try {
+					BankCommander.currentClient.getActiveAccount().withdraw(ammount);
+				} catch (NotEnoughFundsException e) {
+					e.printStackTrace();
+				}
+
+			}
+			else if(BankCommander.currentClient.getActiveAccount() instanceof SavingAccount)
+			{
+				while(BankCommander.currentClient.getActiveAccount().getBalance()<ammount)
+				{
+					System.out.println("Not enough ammount on account. Pass another ammount");
+					ammount = scan.nextFloat();
+				}
+				try {
+					BankCommander.currentClient.getActiveAccount().withdraw(ammount);
+				} catch (NotEnoughFundsException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			bankService.transfer(clientToWhomTransfer, ammount);
 			
 			clientDAO.save(BankCommander.currentClient);

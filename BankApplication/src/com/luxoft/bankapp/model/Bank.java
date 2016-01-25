@@ -11,6 +11,8 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.luxoft.bankapp.annotations.NoDB;
+
 
 
 public class Bank implements Report,Serializable{
@@ -23,7 +25,12 @@ public class Bank implements Report,Serializable{
 
 	private final static Logger LOG = LoggerFactory.getLogger(Bank.class);	
 	
+	@NoDB private Map<String, Client> clientsMap= new TreeMap<String, Client>();
+	private String bankName;
+	private int id;
+	@NoDB private Set<ClientRegistrationListener> listeners = new HashSet<ClientRegistrationListener>();	
 	private Set<Client> clientsList=new TreeSet<Client>();
+	
 	public Set<Client> getClientsList() {
 		return clientsList;
 	}
@@ -32,13 +39,7 @@ public class Bank implements Report,Serializable{
 		this.clientsList = clientsList;
 	}
 
-	private Map<String, Client> clientsMap= new TreeMap<String, Client>();
 
-
-	Set<ClientRegistrationListener> listeners = new HashSet<ClientRegistrationListener>();
-	private String bankName;
-	private int id;
-	
 	public String getBankName() {
 		return bankName;
 	}
@@ -52,8 +53,6 @@ public class Bank implements Report,Serializable{
 	}
 
 	public class EmailNotificationListener implements ClientRegistrationListener{
-
-
 
 		/**
 		 * 

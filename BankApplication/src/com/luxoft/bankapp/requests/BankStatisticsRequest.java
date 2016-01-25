@@ -19,8 +19,7 @@ public class BankStatisticsRequest implements Request {
 
 	@Override
 	public String execute() {
-		BankInfo bankInfo = new BankInfo();
-		bankInfo.setBank(BankCommander.currentBank);
+		BankInfo bankInfo = new BankInfo(BankCommander.currentBank);
 	  	return bankInfo.printReport() ;
 
 	}

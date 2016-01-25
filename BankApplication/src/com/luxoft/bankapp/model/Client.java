@@ -1,14 +1,15 @@
 package com.luxoft.bankapp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.luxoft.bankapp.annotations.NoDB;
 import com.luxoft.bankapp.handling_exceptions.FeedException;
 
 
@@ -23,8 +24,8 @@ public class Client implements Report, Comparable<Client>, Serializable{
 	private final static Logger LOG = LoggerFactory.getLogger(Client.class);
 
 	private String name;
-	private Set<Account> accounts = new HashSet<Account>();
-	private Account activeAccount;
+	private List<Account> accounts = new ArrayList<Account>();
+	@NoDB private Account activeAccount;
 	private float initialOverdraft;
 	private String mailAddress;
 	private String phoneNumber;
@@ -97,8 +98,8 @@ public class Client implements Report, Comparable<Client>, Serializable{
 		this.activeAccount=account;
 	}
 	
-	public Set<Account> getAccounts(){
-		return Collections.unmodifiableSet(accounts);
+	public List<Account> getAccounts(){
+		return Collections.unmodifiableList(accounts);
 	}
 	
 	@Override
@@ -130,7 +131,7 @@ public class Client implements Report, Comparable<Client>, Serializable{
 	public Account getActiveAccount() {
 		return activeAccount;
 	}
-	public void setAccounts(Set<Account> accounts) {
+	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
 	

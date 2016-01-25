@@ -46,7 +46,9 @@ public class ClientDAOImpl extends BaseDAOImpl implements ClientDAO{
 	        			gender = Gender.FEMALE;
 	                bankId  = rs.getInt("bank_id");
 	            }
+	            clientsLog.info("Client attached");
 	        } catch(SQLException e) {
+	        	exceptionsLog.severe("SQLException while finding client by name");
 	            e.printStackTrace();
 	        }finally {
 	            closeConnection();
@@ -89,7 +91,9 @@ public class ClientDAOImpl extends BaseDAOImpl implements ClientDAO{
 	        		clientList.add(new Client(id, clientName, initialOverdraft, mailAddress, phoneNumber, city, gender, bankId));
 
 	            }
+	            clientsLog.info("Clients list attached");
 	        } catch(SQLException e) {
+	        	exceptionsLog.severe("SQLException while getting all clients");
 	            e.printStackTrace();
 	        }finally {
 	            closeConnection();
@@ -120,11 +124,13 @@ public class ClientDAOImpl extends BaseDAOImpl implements ClientDAO{
 	         stmt.setInt(7, client.getBankId());
 	         stmt.setInt(8, client.getId());
 	         if (stmt.execute()) {
+	        	 dbLog.info("Client saved");
 	             System.out.println("Client saved");
 	         }
 	         AccountDAOImpl accountDAO=new AccountDAOImpl();
 			accountDAO.save((client.getActiveAccount()));
 	     } catch (SQLException e) {
+	    	 exceptionsLog.severe("SQLException while saving client ");
 	         e.printStackTrace();
 	         throw new DAOException();
 	     } finally {
@@ -156,9 +162,11 @@ public class ClientDAOImpl extends BaseDAOImpl implements ClientDAO{
 	         stmt.setInt(7, client.getBankId());
 
 	         if (stmt.execute()) {
+	        	 dbLog.info("Client added");
 	             System.out.println("Client saved");
 	         }
 	     } catch (SQLException e) {
+	    	 exceptionsLog.severe("SQLException while adding client");
 	         e.printStackTrace();
 	         throw new DAOException();
 	     } finally {
@@ -179,9 +187,11 @@ public class ClientDAOImpl extends BaseDAOImpl implements ClientDAO{
 	            stmt = conn.prepareStatement(sql);
 	            stmt.setInt(1, client.getId());
 	            if (stmt.execute()) {
+	            	dbLog.info("Client removed");
 	                System.out.println("Client removed");
 	            }
 	        } catch (SQLException e) {
+	        	exceptionsLog.severe("SQLException while removing client");
 	            e.printStackTrace();
 	            throw new DAOException();
 	        } finally {

@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.*;
 
 import com.luxoft.bankapp.comands.BankCommander;
 import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
@@ -13,6 +14,9 @@ import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 
 public class BankServerThreaded implements Runnable{
 
+	static Logger logger = Logger.getLogger(BankServerThreaded.class.getName());
+	
+	
 	final static int POOL_SIZE=1200;
 	
 	BankServerMonitor serverMonitor=new BankServerMonitor();
@@ -28,6 +32,10 @@ public class BankServerThreaded implements Runnable{
 	
 	@Override
 	public void run() {
+		logger.setLevel(Level.ALL);
+		Handler handler = new ConsoleHandler();
+		logger.addHandler(handler);
+		
         openServerSocket();
 
 		while (running) {
@@ -39,6 +47,7 @@ public class BankServerThreaded implements Runnable{
 		        
 			} catch (IOException e) {
 				pool.shutdown();
+				logger.log(Level.SEVERE, e.getMessage(), e);
 				e.printStackTrace();
 			}
 
@@ -50,6 +59,7 @@ public class BankServerThreaded implements Runnable{
         try {
             serverSocket = new ServerSocket(serverPort);
         } catch (IOException e) {
+        	logger.severe("Cannot open port " + this.serverPort+ "- IOException");
             throw new RuntimeException("Cannot open port " + this.serverPort, e);
         }
     }
@@ -71,10 +81,14 @@ public class BankServerThreaded implements Runnable{
     
     public static void main(String[] args)
     {
+		logger.setLevel(Level.ALL);
+		Handler handler = new ConsoleHandler();
+		logger.addHandler(handler);
+    	
     try {
 		BankCommander.currentBank=BankApplication.initialize();
 	} catch (ClientExistsException e) {
-		// TODO Auto-generated catch block
+		logger.warning("Client exist exception during bank initialization");
 		e.printStackTrace();
 	}
 	BankServerThreaded bst = new BankServerThreaded(9090);
