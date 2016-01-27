@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script>
+
+function hideOthers()
+{
+	var name = $("#name").val();
+	var city = $("#city").val();
+
+
+	$('tr:not(:contains(' + name + '))').hide();
+	$('tr:not(:contains(' + city + '))').hide();
+	
+}
+</script>
+<style>
+	#results td {
+    border: 1px solid #AAA;
+    font-weight:bold;
+    padding: 3px;
+}
+</style>
+</head>
+<body>
+    <table>
+	<tr>
+        <td>Name:</td>
+        <td><input type="text" name="name" id="name"/><div id="nameError" class="error"></div></td>
+    </tr>
+    <tr>
+        <td>City:</td>
+        <td><input type="text" name="city" id="city"/><div id="cityError" class="error"></div></td>
+    </tr>
+    <tr>
+    	  <td><button id="hide" onclick="hideOthers()" value="Search">Search</button></td>
+    </tr>
+    </table>
+    
+    <table>
+    <tr>
+   		<th>City</th>
+		<th width="200">Client Name</th>
+		<th width="100">Balance</th>
+    </tr>
+	<tr>
+		<td>Cracow</td>
+		<td>John Snow</td>
+		<td>2200</td>
+
+	</tr>
+	<tr>
+		<td>Cracow</td>
+		<td>John Doe</td>
+		<td>1000</td>
+	</tr>
+    </table>
+    <a href="menu.html">Retrun to Menu</a>
+</body>
+</html>
