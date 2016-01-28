@@ -19,12 +19,9 @@
 	</script>	
 </head>
 <body>
-	<form action="menu.html">
-      <input type="text" name="user" id="name"><div id="nameError"></div>
+	<form action="/login" method="post">
+      <input type="text" name="clientName" id="name"><div id="nameError"></div>
       <input type="submit" onclick="return checkForm();" value="Submit">
-	</form>
-		<form action="/login" method="post">
-		Client name: <input type="text" name="clientName">
 	</form>
 </body>
 </html>
