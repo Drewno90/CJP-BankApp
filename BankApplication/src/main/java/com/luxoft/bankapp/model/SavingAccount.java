@@ -19,6 +19,12 @@ public class SavingAccount extends AbstractAccount {
 
 	public SavingAccount(float balance) {
 		super(balance);
+		if (balance < 0) {
+			LOG.warn("Illegal argument {}", balance);
+			throw new IllegalArgumentException(Float.toString(balance));
+		}
+
+
 	}
 
 	public SavingAccount(int id, String type, float balance, int clientId) {

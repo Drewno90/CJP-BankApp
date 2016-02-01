@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 public class LoginServlet extends HttpServlet{
 
 	/**
@@ -28,7 +29,8 @@ public class LoginServlet extends HttpServlet{
 		}
 		request.getSession().setAttribute("clientName", clientName);
 		//logger.info("Client "+ clientName+" logged into ATM");
-		
+
+
 		/** redirect to menu */
 		response.sendRedirect("/menu.html");
 	}

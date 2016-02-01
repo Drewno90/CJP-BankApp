@@ -20,10 +20,6 @@ public abstract class AbstractAccount implements Account, Serializable {
 	private int clientId;
 
 	AbstractAccount(float balance) {
-		if (balance < 0) {
-			LOG.warn("Illegal argument {}", balance);
-			throw new IllegalArgumentException(Float.toString(balance));
-		}
 		this.balance = balance;
 	}
 

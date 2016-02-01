@@ -25,7 +25,7 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, account.getAccountType());
 			stmt.setFloat(2, account.getBalance());
-			if (account.getAccountType().equals("Checking Account"))
+			if (account.getAccountType().equals("CheckingAccount"))
 				stmt.setFloat(3, ((CheckingAccount) account).getOverdraft());
 			else
 				stmt.setFloat(3, 0f);
@@ -53,7 +53,7 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, account.getAccountType());
 			stmt.setFloat(2, account.getBalance());
-			if (account.getAccountType().equals("Checking Account"))
+			if (account.getAccountType().equals("CheckingAccount"))
 				stmt.setFloat(3, ((CheckingAccount) account).getOverdraft());
 			else
 				stmt.setFloat(3, 0f);

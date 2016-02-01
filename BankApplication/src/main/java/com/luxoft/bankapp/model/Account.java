@@ -9,6 +9,8 @@ public interface Account extends Report, Serializable {
 
 	public float getBalance();
 
+	public void setBalance(float ammount);
+	
 	public void deposit(float ammount);
 
 	public void withdraw(float ammount) throws NotEnoughFundsException;

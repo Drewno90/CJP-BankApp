@@ -26,22 +26,22 @@ public class Client implements Report, Comparable<Client>, Serializable {
 	@NoDB
 	private Account activeAccount;
 	private float initialOverdraft;
-	private String mailAddress;
+	private String email;
 	private String phoneNumber;
 	private String city;
 	private int id;
-	private Gender clientGender;
+	private Gender gender;
 	private int bankId;
 
 	public Client(String name, Gender gender, float overdraft) {
 		this.name = name;
-		this.setClientGender(clientGender);
+		this.setClientGender(gender);
 		this.initialOverdraft = overdraft;
 	}
 
-	public Client(String name, float initialOverdraft, Gender clientGender, String city) {
+	public Client(String name, float initialOverdraft, Gender gender, String city) {
 		this.name = name;
-		this.setClientGender(clientGender);
+		this.setClientGender(gender);
 		this.initialOverdraft = initialOverdraft;
 		this.city = city;
 	}
@@ -49,28 +49,28 @@ public class Client implements Report, Comparable<Client>, Serializable {
 	public Client(String name, String mailAddress, String phoneNumber, float initialOverdraft) {
 		this.name = name;
 		this.initialOverdraft = initialOverdraft;
-		this.mailAddress = mailAddress;
+		this.email = mailAddress;
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Client(String name, String mailAddress, String phoneNumber, float initialOverdraft, Gender clientGender,
+	public Client(String name, String mailAddress, String phoneNumber, float initialOverdraft, Gender gender,
 			String city) {
 		this.name = name;
-		this.setClientGender(clientGender);
+		this.setClientGender(gender);
 		this.initialOverdraft = initialOverdraft;
-		this.mailAddress = mailAddress;
+		this.email = mailAddress;
 		this.phoneNumber = phoneNumber;
 		this.city = city;
 	}
 
 	public Client(int id, String name, float initialOverdraft, String mailAddress, String phoneNumber, String city,
-			Gender clientGender, int bankId) {
+			Gender gender, int bankId) {
 		this.id = id;
 		this.name = name;
 		this.initialOverdraft = initialOverdraft;
-		this.mailAddress = mailAddress;
+		this.email = mailAddress;
 		this.phoneNumber = phoneNumber;
-		this.clientGender = clientGender;
+		this.gender = gender;
 		this.city = city;
 		this.bankId = bankId;
 	}
@@ -83,9 +83,9 @@ public class Client implements Report, Comparable<Client>, Serializable {
 			int bankId) {
 		this.name = name;
 		this.initialOverdraft = overdraft;
-		this.mailAddress = mailAddress;
+		this.email = mailAddress;
 		this.phoneNumber = phoneNumber;
-		this.clientGender = gender;
+		this.gender = gender;
 		this.city = city;
 		this.bankId = bankId;
 	}
@@ -101,7 +101,7 @@ public class Client implements Report, Comparable<Client>, Serializable {
 	@Override
 	public void printReport() {
 		System.out.print("Name: ");
-		getClientSalutation(this.clientGender);
+		getClientSalutation(this.gender);
 		System.out.print(this.name);
 		System.out.println("Active account: " + this.activeAccount + " Its balance " + this.activeAccount.getBalance());
 		System.out.println("List of all client accounts:");
@@ -146,11 +146,11 @@ public class Client implements Report, Comparable<Client>, Serializable {
 	}
 
 	public String getMailAddress() {
-		return mailAddress;
+		return email;
 	}
 
 	public void setMailAddress(String mailAddress) {
-		this.mailAddress = mailAddress;
+		this.email = mailAddress;
 	}
 
 	public String getPhoneNumber() {
@@ -202,18 +202,18 @@ public class Client implements Report, Comparable<Client>, Serializable {
 	}
 
 	public Gender getClientGender() {
-		return clientGender;
+		return gender;
 	}
 
 	public void setClientGender(Gender clientGender) {
-		this.clientGender = clientGender;
+		this.gender = clientGender;
 	}
 
 	@Override
 	public String toString() {
 		return new StringBuffer().append("Client name=").append(name).append(", accounts=").append(accounts)
 				.append(", activeAccount=").append(activeAccount).append(", initialOverdraft=").append(initialOverdraft)
-				.append(", clientGender=").append(clientGender).toString();
+				.append(", clientGender=").append(gender).toString();
 
 	}
 
