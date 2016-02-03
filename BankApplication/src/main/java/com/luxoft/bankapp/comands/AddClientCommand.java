@@ -5,19 +5,29 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.luxoft.bankapp.dao.ClientDAO;
-import com.luxoft.bankapp.dao.ClientDAOImpl;
 import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.model.Client;
 import com.luxoft.bankapp.model.Gender;
-import com.luxoft.bankapp.service.BankService;
-import com.luxoft.bankapp.service.BankServiceImpl;
 
-public class AddClientCommand implements Command {
+
+public class AddClientCommand extends Command {
 
 	private final static Logger LOG = LoggerFactory.getLogger(AddClientCommand.class);
+	
+	@Autowired
+	private ClientDAO clientDAO;
+	
+	public ClientDAO getClientDAO() {
+		return clientDAO;
+	}
+
+	public void setClientDAO(ClientDAO clientDAO) {
+		this.clientDAO = clientDAO;
+	}
 
 	@Override
 	public void execute() {
@@ -71,8 +81,6 @@ public class AddClientCommand implements Command {
 
 		Client client = new Client(name, overdraft, mailAddress, phoneNumber, city, gender, bankId);
 
-		BankService bankService = new BankServiceImpl();
-		ClientDAO clientDAO = new ClientDAOImpl();
 		try {
 			bankService.addClient(BankCommander.currentBank, client);
 			clientDAO.add(client);

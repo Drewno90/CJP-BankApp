@@ -18,7 +18,7 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO {
 	public void save(Account account) throws DAOException {
 
 		String sql = "UPDATE ACCOUNTS SET type=?,balance=?,overdraft=?,client_id=? WHERE client_id="
-				+ account.getClientId() + ";";
+				+ account.getClientId() + " AND id="+account.getId() +";";
 		PreparedStatement stmt;
 		try {
 			openConnection();
@@ -108,7 +108,7 @@ public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO {
 		try {
 			openConnection();
 			Statement stmt = conn.createStatement();
-			String sql = "SELECT * FROM ACCOUNTS ";
+			String sql = "SELECT * FROM ACCOUNTS WHERE client_id="+idClient+"";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {

@@ -22,5 +22,7 @@ public interface Account extends Report, Serializable {
 	public void parseFeed(Map<String, String> feed);
 
 	public int getClientId();
+	
+	public int getId();
 
 }

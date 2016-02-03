@@ -1,16 +1,43 @@
 package com.luxoft.bankapp.comands;
 
-import com.luxoft.bankapp.service.BankService;
-import com.luxoft.bankapp.service.BankServiceImpl;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GetAccountCommand implements Command {
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.luxoft.bankapp.dao.AccountDAO;
+import com.luxoft.bankapp.handling_exceptions.DAOException;
+import com.luxoft.bankapp.model.Account;
+
+public class GetAccountCommand extends Command {
+
+	@Autowired
+	private AccountDAO accountDAO;
+	
+	public AccountDAO getAccountDAO() {
+		return accountDAO;
+	}
+
+	public void setAccountDAO(AccountDAO accountDAO) {
+		this.accountDAO = accountDAO;
+	}
 
 	@Override
 	public void execute() {
 
-		BankService bankService = new BankServiceImpl();
-		bankService.getAccounts(BankCommander.currentClient);
+		List<Account> accountList = new ArrayList<Account>();
+		try {
+			accountList = accountDAO.getClientAccounts(BankCommander.currentClient.getId());
 
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		for (Account account : accountList) {
+//			if (account.getClientId() == BankCommander.currentClient.getId()) {
+				System.out.println("Type:" + account.getAccountType());
+				System.out.println("Account Balance=" + account.getBalance());
+			//}
+		}
 	}
 
 	@Override

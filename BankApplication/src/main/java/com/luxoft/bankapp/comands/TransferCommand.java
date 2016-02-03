@@ -5,33 +5,43 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.luxoft.bankapp.dao.ClientDAO;
-import com.luxoft.bankapp.dao.ClientDAOImpl;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 import com.luxoft.bankapp.model.CheckingAccount;
 import com.luxoft.bankapp.model.Client;
 import com.luxoft.bankapp.model.SavingAccount;
 import com.luxoft.bankapp.service.BankService;
-import com.luxoft.bankapp.service.BankServiceImpl;
 
-public class TransferCommand implements Command {
+public class TransferCommand extends Command {
 
 	private final static Logger LOG = LoggerFactory.getLogger(TransferCommand.class);
 
+	@Autowired
+	private ClientDAO clientDAO;
+	
+	public ClientDAO getClientDAO() {
+		return clientDAO;
+	}
+
+	public void setClientDAO(ClientDAO clientDAO) {
+		this.clientDAO = clientDAO;
+	}
+	
 	@Override
 	public void execute() {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("To whom you want to send?");
 		String clientName = scan.nextLine();
-		BankService bankService = new BankServiceImpl();
+		
 		SelectActiveAccount selectActiveAccount = new SelectActiveAccount();
 		float ammount = 0;
 
 		Client clientToWhomTransfer = bankService.findClientByHisName(BankCommander.currentBank, clientName);
 
-		ClientDAO clientDAO = new ClientDAOImpl();
+
 		try {
 			Client tempClient = BankCommander.currentClient;
 			BankCommander.currentClient = clientToWhomTransfer;

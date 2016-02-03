@@ -2,7 +2,7 @@ package com.luxoft.bankapp.comands;
 
 import com.luxoft.bankapp.model.BankInfo;
 
-public class DBReportCommander implements Command {
+public class DBReportCommander extends Command {
 
 	@Override
 	public void execute() {

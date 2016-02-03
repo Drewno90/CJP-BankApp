@@ -4,21 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.luxoft.bankapp.dao.AccountDAO;
-import com.luxoft.bankapp.dao.AccountDAOImpl;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.model.Account;
-import com.luxoft.bankapp.service.BankService;
-import com.luxoft.bankapp.service.BankServiceImpl;
 
-public class SelectActiveAccount implements Command {
+public class SelectActiveAccount extends Command {
+
+	@Autowired
+	private AccountDAO accountDAO;
+	
+	public AccountDAO getAccountDAO() {
+		return accountDAO;
+	}
+
+	public void setAccountDAO(AccountDAO accountDAO) {
+		this.accountDAO = accountDAO;
+	}
 
 	@Override
 	public void execute() {
 
-		AccountDAO accountDAO = new AccountDAOImpl();
 		List<Account> accountList = new ArrayList<Account>();
-		BankService bankService = new BankServiceImpl();
 		try {
 			accountList = accountDAO.getClientAccounts(BankCommander.currentClient.getId());
 

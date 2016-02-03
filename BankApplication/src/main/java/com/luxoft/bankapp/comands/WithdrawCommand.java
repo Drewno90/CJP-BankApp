@@ -5,17 +5,29 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.luxoft.bankapp.dao.ClientDAO;
-import com.luxoft.bankapp.dao.ClientDAOImpl;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 import com.luxoft.bankapp.model.CheckingAccount;
 import com.luxoft.bankapp.model.SavingAccount;
 
-public class WithdrawCommand implements Command {
+public class WithdrawCommand extends Command {
 
 	private final static Logger LOG = LoggerFactory.getLogger(WithdrawCommand.class);
+	
+	@Autowired
+	private ClientDAO clientDAO;
+	
+	
+	public ClientDAO getClientDAO() {
+		return clientDAO;
+	}
+
+	public void setClientDAO(ClientDAO clientDAO) {
+		this.clientDAO = clientDAO;
+	}
 
 	@Override
 	public void execute() {
@@ -23,7 +35,7 @@ public class WithdrawCommand implements Command {
 		System.out.println("How much you want to withdraw?");
 		float withdraw = scan.nextFloat();
 
-		ClientDAO clientDAO = new ClientDAOImpl();
+
 		try {
 
 			if (BankCommander.currentClient.getActiveAccount() instanceof CheckingAccount) {

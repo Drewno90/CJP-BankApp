@@ -3,12 +3,17 @@ package com.luxoft.bankapp.comands;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.luxoft.bankapp.handling_exceptions.ClientExistsException;
 import com.luxoft.bankapp.model.Account;
@@ -20,50 +25,39 @@ import com.luxoft.bankapp.service.BankService;
 import com.luxoft.bankapp.service.BankServiceImpl;
 
 public class BankCommander {
-	public static Bank currentBank = new Bank("MyBank");
+	public static Bank currentBank = new Bank("My Bank");
 	public static Client currentClient;
-	public static Map<String, Command> commands = new TreeMap<String, Command>();
+	
+	@Autowired
+	private Map<Integer, Command> commandsMap;
+
+
 
 	static Logger logger = Logger.getLogger(BankCommander.class.getName());
 
 	static {
 		logger.setLevel(Level.SEVERE);
 	}
-
-	public static void initializeCommands() {
-		commands.put("1", new FindClientCommand());
-		commands.put("2", new GetAccountCommand());
-		commands.put("3", new DepositCommand());
-		commands.put("4", new WithdrawCommand());
-		commands.put("5", new TransferCommand());
-		commands.put("6", new AddClientCommand());
-		commands.put("7", new DBSelectBankCommander());
-		commands.put("8", new DBRemoveClientCommander());
-		commands.put("9", new DBSelectClientCommander());
-		commands.put("10", new SelectActiveAccount());
-		commands.put("11", new DBReportCommander());
-		commands.put("0", new Command() { // 7 - Exit Command
-			public void execute() {
-				logger.info("System Stopped");
-				System.exit(0);
-			}
-
-			public void printCommandInfo() {
-				System.out.println("Exit");
-			}
-		});
+	
+	public Map<Integer, Command> getCommandsMap() {
+		return commandsMap;
 	}
 
-	public static void registerCommand(String name, Command command) {
-		commands.put(name, command);
+	public void setCommandsMap(Map<Integer, Command> commands) {
+		commandsMap = commands;
+	}
+	
+	public  void registerCommand(Integer id, Command command) {
+		commandsMap.put(id, command);
 	}
 
-	public static void removeCommand(String name) {
-		commands.remove(name);
+	public void removeCommand(Integer id) {
+		commandsMap.remove(id);
 	}
 
-	public static void main(String args[]) {
-		BankService bankService = new BankServiceImpl();
+	public void run() {
+
+        BankService bankService = new BankServiceImpl();
 
 		try {
 			LogManager.getLogManager().readConfiguration(new FileInputStream("logger_all.properties"));
@@ -86,17 +80,24 @@ public class BankCommander {
 
 			e.printStackTrace();
 		}
-		initializeCommands();
 		Scanner scan = new Scanner(System.in);
 		while (true) {
-			for (String commandNumber : commands.keySet()) { // show menu
-				System.out.print(commandNumber + ") ");
-				commands.get(commandNumber).printCommandInfo();
+			for (int i = 0; i < commandsMap.size(); i++) { // show menu
+                System.out.print((i) + ") ");
+                commandsMap.get(i).printCommandInfo();
 			}
-			String commandName = scan.nextLine();
-			commands.get(commandName).execute();
+			int commandName = scan.nextInt();
+			commandsMap.get(commandName).execute();
 
 		}
 
+	}
+	
+	public static void main(String args[])
+	{
+        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+		BankCommander bankCommander = (BankCommander) context.getBean("bankCommander");
+		//BankCommander bankCommander= new BankCommander();
+		bankCommander.run();
 	}
 }

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="windows-1250" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-02-02T20:29:32</date>
+  <millis>1454441372855</millis>
+  <sequence>200</sequence>
+  <logger>db.com.luxoft.bankapp.dao.BankDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>openConnection</method>
+  <thread>1</thread>
+  <message>Connected to database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:33</date>
+  <millis>1454441373021</millis>
+  <sequence>201</sequence>
+  <logger>db.com.luxoft.bankapp.dao.BankDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Disconnected with database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:33</date>
+  <millis>1454441373129</millis>
+  <sequence>202</sequence>
+  <logger>db.com.luxoft.bankapp.dao.BankDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>openConnection</method>
+  <thread>1</thread>
+  <message>Connected to database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:33</date>
+  <millis>1454441373319</millis>
+  <sequence>203</sequence>
+  <logger>db.com.luxoft.bankapp.dao.BankDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Disconnected with database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:33</date>
+  <millis>1454441373417</millis>
+  <sequence>204</sequence>
+  <logger>db.com.luxoft.bankapp.dao.ClientDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>openConnection</method>
+  <thread>1</thread>
+  <message>Connected to database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:33</date>
+  <millis>1454441373595</millis>
+  <sequence>206</sequence>
+  <logger>db.com.luxoft.bankapp.dao.ClientDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Disconnected with database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:34</date>
+  <millis>1454441374604</millis>
+  <sequence>207</sequence>
+  <logger>db.com.luxoft.bankapp.dao.BankDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>openConnection</method>
+  <thread>1</thread>
+  <message>Connected to database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:34</date>
+  <millis>1454441374798</millis>
+  <sequence>208</sequence>
+  <logger>db.com.luxoft.bankapp.dao.BankDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Disconnected with database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:34</date>
+  <millis>1454441374908</millis>
+  <sequence>209</sequence>
+  <logger>db.com.luxoft.bankapp.dao.ClientDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>openConnection</method>
+  <thread>1</thread>
+  <message>Connected to database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:35</date>
+  <millis>1454441375105</millis>
+  <sequence>211</sequence>
+  <logger>db.com.luxoft.bankapp.dao.ClientDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Disconnected with database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:35</date>
+  <millis>1454441375234</millis>
+  <sequence>212</sequence>
+  <logger>db.com.luxoft.bankapp.dao.AccountDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>openConnection</method>
+  <thread>1</thread>
+  <message>Connected to database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:35</date>
+  <millis>1454441375472</millis>
+  <sequence>213</sequence>
+  <logger>db.com.luxoft.bankapp.dao.AccountDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Disconnected with database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:35</date>
+  <millis>1454441375563</millis>
+  <sequence>214</sequence>
+  <logger>db.com.luxoft.bankapp.dao.AccountDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>openConnection</method>
+  <thread>1</thread>
+  <message>Connected to database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:35</date>
+  <millis>1454441375726</millis>
+  <sequence>215</sequence>
+  <logger>db.com.luxoft.bankapp.dao.AccountDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Disconnected with database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:35</date>
+  <millis>1454441375834</millis>
+  <sequence>216</sequence>
+  <logger>db.com.luxoft.bankapp.dao.AccountDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>openConnection</method>
+  <thread>1</thread>
+  <message>Connected to database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:36</date>
+  <millis>1454441376009</millis>
+  <sequence>217</sequence>
+  <logger>db.com.luxoft.bankapp.dao.AccountDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Disconnected with database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:36</date>
+  <millis>1454441376153</millis>
+  <sequence>218</sequence>
+  <logger>db.com.luxoft.bankapp.dao.AccountDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>openConnection</method>
+  <thread>1</thread>
+  <message>Connected to database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:36</date>
+  <millis>1454441376313</millis>
+  <sequence>219</sequence>
+  <logger>db.com.luxoft.bankapp.dao.AccountDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Disconnected with database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:36</date>
+  <millis>1454441376414</millis>
+  <sequence>220</sequence>
+  <logger>db.com.luxoft.bankapp.dao.AccountDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>openConnection</method>
+  <thread>1</thread>
+  <message>Connected to database</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:36</date>
+  <millis>1454441376604</millis>
+  <sequence>221</sequence>
+  <logger>db.com.luxoft.bankapp.dao.AccountDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.BaseDAOImpl</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Disconnected with database</message>
+</record>

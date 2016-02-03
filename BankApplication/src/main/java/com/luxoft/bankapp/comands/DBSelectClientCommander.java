@@ -2,18 +2,30 @@ package com.luxoft.bankapp.comands;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.luxoft.bankapp.dao.ClientDAO;
-import com.luxoft.bankapp.dao.ClientDAOImpl;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 
-public class DBSelectClientCommander implements Command {
+public class DBSelectClientCommander extends Command {
+
+	@Autowired
+	private ClientDAO clientDAO;
+	
+	public ClientDAO getClientDAO() {
+		return clientDAO;
+	}
+
+	public void setClientDAO(ClientDAO clientDAO) {
+		this.clientDAO = clientDAO;
+	}
 
 	@Override
 	public void execute() {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Pass Client name");
 		String selectedClientName = scan.nextLine();
-		ClientDAO clientDAO = new ClientDAOImpl();
+
 
 		try {
 			while (clientDAO.findClientByName(BankCommander.currentBank, selectedClientName) == null) {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1250" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-02-02T20:29:33</date>
+  <millis>1454441373420</millis>
+  <sequence>205</sequence>
+  <logger>clients.com.luxoft.bankapp.dao.ClientDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.ClientDAOImpl</class>
+  <method>getAllClients</method>
+  <thread>1</thread>
+  <message>Clients list attached</message>
+</record>
+<record>
+  <date>2016-02-02T20:29:34</date>
+  <millis>1454441374911</millis>
+  <sequence>210</sequence>
+  <logger>clients.com.luxoft.bankapp.dao.ClientDAOImpl</logger>
+  <level>INFO</level>
+  <class>com.luxoft.bankapp.dao.ClientDAOImpl</class>
+  <method>getAllClients</method>
+  <thread>1</thread>
+  <message>Clients list attached</message>
+</record>

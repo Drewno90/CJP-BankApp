@@ -18,7 +18,7 @@ public abstract class AbstractAccount implements Account, Serializable {
 
 	private float balance;
 	private int clientId;
-
+	private int id;
 	AbstractAccount(float balance) {
 		this.balance = balance;
 	}
@@ -90,6 +90,14 @@ public abstract class AbstractAccount implements Account, Serializable {
 
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
