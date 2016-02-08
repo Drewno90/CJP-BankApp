@@ -11,13 +11,14 @@ import com.luxoft.bankapp.model.Account;
 
 public class GetAccountCommand extends Command {
 
-	@Autowired
+
 	private AccountDAO accountDAO;
 	
 	public AccountDAO getAccountDAO() {
 		return accountDAO;
 	}
 
+	@Autowired
 	public void setAccountDAO(AccountDAO accountDAO) {
 		this.accountDAO = accountDAO;
 	}

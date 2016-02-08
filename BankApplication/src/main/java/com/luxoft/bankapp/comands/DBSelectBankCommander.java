@@ -14,15 +14,16 @@ import com.luxoft.bankapp.model.Client;
 
 public class DBSelectBankCommander extends Command {
 	
-	@Autowired
+
 	private BankDAO bankDAO;
-	@Autowired
+
 	private ClientDAO clientDAO;
 	
 	public BankDAO getBankDAO() {
 		return bankDAO;
 	}
-
+	
+	@Autowired
 	public void setBankDAO(BankDAO bankDAO) {
 		this.bankDAO = bankDAO;
 	}
@@ -30,7 +31,8 @@ public class DBSelectBankCommander extends Command {
 	public ClientDAO getClientDAO() {
 		return clientDAO;
 	}
-
+	
+	@Autowired
 	public void setClientDAO(ClientDAO clientDAO) {
 		this.clientDAO = clientDAO;
 	}

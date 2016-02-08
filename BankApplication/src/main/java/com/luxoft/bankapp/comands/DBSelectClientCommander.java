@@ -9,13 +9,14 @@ import com.luxoft.bankapp.handling_exceptions.DAOException;
 
 public class DBSelectClientCommander extends Command {
 
-	@Autowired
+
 	private ClientDAO clientDAO;
 	
 	public ClientDAO getClientDAO() {
 		return clientDAO;
 	}
 
+	@Autowired
 	public void setClientDAO(ClientDAO clientDAO) {
 		this.clientDAO = clientDAO;
 	}

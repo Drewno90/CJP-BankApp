@@ -5,8 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
+
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 
+@Resource
 public class BaseDAOImpl implements BaseDAO {
 
 	Connection conn;

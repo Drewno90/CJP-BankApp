@@ -13,19 +13,19 @@ import com.luxoft.bankapp.handling_exceptions.NotEnoughFundsException;
 import com.luxoft.bankapp.model.CheckingAccount;
 import com.luxoft.bankapp.model.Client;
 import com.luxoft.bankapp.model.SavingAccount;
-import com.luxoft.bankapp.service.BankService;
 
 public class TransferCommand extends Command {
 
 	private final static Logger LOG = LoggerFactory.getLogger(TransferCommand.class);
 
-	@Autowired
+
 	private ClientDAO clientDAO;
 	
 	public ClientDAO getClientDAO() {
 		return clientDAO;
 	}
 
+	@Autowired
 	public void setClientDAO(ClientDAO clientDAO) {
 		this.clientDAO = clientDAO;
 	}

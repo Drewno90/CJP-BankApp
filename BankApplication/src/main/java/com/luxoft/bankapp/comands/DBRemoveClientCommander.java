@@ -10,13 +10,14 @@ import com.luxoft.bankapp.handling_exceptions.DAOException;
 
 public class DBRemoveClientCommander extends Command {
 
-	@Autowired
+
 	private AccountDAO accountDAO;
 	
 	public AccountDAO getAccountDAO() {
 		return accountDAO;
 	}
-
+	
+	@Autowired
 	public void setAccountDAO(AccountDAO accountDAO) {
 		this.accountDAO = accountDAO;
 	}

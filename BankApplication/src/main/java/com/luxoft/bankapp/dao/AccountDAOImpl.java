@@ -7,11 +7,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.model.Account;
 import com.luxoft.bankapp.model.CheckingAccount;
 import com.luxoft.bankapp.model.SavingAccount;
 
+@Resource
 public class AccountDAOImpl extends BaseDAOImpl implements AccountDAO {
 
 	@Override

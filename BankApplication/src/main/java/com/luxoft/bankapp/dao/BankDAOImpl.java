@@ -4,10 +4,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.annotation.Resource;
+
 import com.luxoft.bankapp.handling_exceptions.BankNotFoundException;
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.model.Bank;
 
+@Resource
 public class BankDAOImpl extends BaseDAOImpl implements BankDAO {
 
 	public Bank getBankByName(String name) throws DAOException, BankNotFoundException {

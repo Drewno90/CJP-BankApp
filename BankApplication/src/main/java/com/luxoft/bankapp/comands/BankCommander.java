@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -28,10 +30,7 @@ public class BankCommander {
 	public static Bank currentBank = new Bank("My Bank");
 	public static Client currentClient;
 	
-	@Autowired
 	private Map<Integer, Command> commandsMap;
-
-
 
 	static Logger logger = Logger.getLogger(BankCommander.class.getName());
 
@@ -42,7 +41,7 @@ public class BankCommander {
 	public Map<Integer, Command> getCommandsMap() {
 		return commandsMap;
 	}
-
+	@Autowired
 	public void setCommandsMap(Map<Integer, Command> commands) {
 		commandsMap = commands;
 	}

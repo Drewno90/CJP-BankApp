@@ -7,11 +7,14 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import com.luxoft.bankapp.handling_exceptions.DAOException;
 import com.luxoft.bankapp.model.Bank;
 import com.luxoft.bankapp.model.Client;
 import com.luxoft.bankapp.model.Gender;
 
+@Resource
 public class ClientDAOImpl extends BaseDAOImpl implements ClientDAO {
 
 	@Override

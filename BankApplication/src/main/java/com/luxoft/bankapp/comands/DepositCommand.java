@@ -14,13 +14,14 @@ public class DepositCommand extends Command {
 
 	private final static Logger LOG = LoggerFactory.getLogger(DepositCommand.class);
 
-	@Autowired
+
 	private ClientDAO clientDAO;
 	
 	public ClientDAO getClientDAO() {
 		return clientDAO;
 	}
-
+	
+	@Autowired
 	public void setClientDAO(ClientDAO clientDAO) {
 		this.clientDAO = clientDAO;
 	}
